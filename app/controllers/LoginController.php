@@ -6,29 +6,38 @@
  * Date: 03/09/2016
  * Time: 20:47
  */
-include 'c:/xampp/htdocs/photoapp/db/dao/LoginDao.php';
+
+include_once 'c:/xampp/htdocs/photoapp/app/db/dao/UsersDao.php';
+include_once 'c:/xampp/htdocs/photoapp/app/controllers/SessionsController.php';
 
 class LoginController
 {
-    private $model;
+    private $loginModel;
 
-    public function __construct($model)
+    function __construct($loginModel)
     {
-        $this->model = $model;
+        $this->loginModel = $loginModel;
     }
 
     public function login($username, $password)
     {
-        $userDao = new LoginDao();
-        if ($userDao->validateUser($username,$password))
+        $userDao = new UsersDao();
+
+        if ($user = $userDao->getUser($username,$password))
         {
-            $this->model->setMessage("Logged in");
-            return true;
+            SessionsController::createSession($user);
+            header('Location: ../home');
+            exit();
         }
         else
         {
-            $this->model->setMessage($userDao->error);
-            return false;
+            $this->loginModel->setError($userDao->getResponse());
         }
+    }
+
+    public static function logout()
+    {
+        SessionsController::deleteSession();
+        header('Location: ../../');
     }
 }
