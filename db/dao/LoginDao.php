@@ -11,8 +11,8 @@ include 'c:/xampp/htdocs/photoapp/core/db/DbConnection.php';
 
 class LoginDao
 {
-    private $dbConnection;
     public $error;
+    private $dbConnection;
 
     function LoginDao()
     {
