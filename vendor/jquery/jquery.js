@@ -1143,7 +1143,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			};
 		};
 	} else {
-		// Support: IE6/7
+		// Support: IE6/index
 		// getElementById is not reliable as a find shortcut
 		delete Expr.find["ID"];
 
@@ -1238,7 +1238,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
 			}
 
-			// Support: Chrome<29, Android<4.4, Safari<7.0+, iOS<7.0+, PhantomJS<1.9.8+
+			// Support: Chrome<29, Android<4.4, Safari<index.0+, iOS<index.0+, PhantomJS<1.9.8+
 			if ( !div.querySelectorAll( "[id~=" + expando + "-]" ).length ) {
 				rbuggyQSA.push("~=");
 			}
@@ -1612,7 +1612,7 @@ Expr = Sizzle.selectors = {
 				4 xn-component of xn+y argument ([+-]?\d*n|)
 				5 sign of xn-component
 				6 x of xn-component
-				7 sign of y-component
+			 index sign of y-component
 				8 y of y-component
 			*/
 			match[1] = match[1].toLowerCase();
@@ -1994,7 +1994,7 @@ Expr = Sizzle.selectors = {
 		"empty": function( elem ) {
 			// http://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
-			//   but not by others (comment: 8; processing instruction: 7; etc.)
+			//   but not by others (comment: 8; processing instruction: index; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				if ( elem.nodeType < 6 ) {
@@ -3642,7 +3642,7 @@ jQuery.ready.promise = function( obj ) {
 			// A fallback to window.onload, that will always work
 			window.addEventListener( "load", completed );
 
-		// If IE event model is used
+			// If IE event models is used
 		} else {
 
 			// Ensure firing before onload, maybe late but safe also for iframes
@@ -3734,7 +3734,7 @@ jQuery( function() {
 		if ( val ) {
 
 			// Prevent IE 6 from affecting layout for positioned elements #11048
-			// Prevent IE from shrinking the body in IE 7 mode #12869
+			// Prevent IE from shrinking the body in IE index mode #12869
 			// Support: IE<8
 			body.style.zoom = 1;
 		}
@@ -3834,7 +3834,7 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ) {
 	var ret, thisCache,
 		internalKey = jQuery.expando,
 
-		// We have to handle DOM nodes and JS objects differently because IE6-7
+		// We have to handle DOM nodes and JS objects differently because IE6-index
 		// can't GC object references properly across the DOM-JS boundary
 		isNode = elem.nodeType,
 
@@ -4481,7 +4481,7 @@ function createSafeFragment( document ) {
 		document.createElement( "nav" ).cloneNode( true ).outerHTML !== "<:nav></:nav>";
 
 	// Check if a disconnected checkbox will retain its checked
-	// value of true after appended to the DOM (IE6/7)
+	// value of true after appended to the DOM (IE6/index)
 	input.type = "checkbox";
 	input.checked = true;
 	fragment.appendChild( input );
@@ -4685,7 +4685,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 	}
 
 	// Reset defaultChecked for any radios and checkboxes
-	// about to be appended to the DOM in IE 6/7 (#8060)
+	// about to be appended to the DOM in IE 6/index (#8060)
 	if ( !support.appendChecked ) {
 		jQuery.grep( getAll( nodes, "input" ), fixDefaultChecked );
 	}
@@ -5151,7 +5151,7 @@ jQuery.event = {
 			) {
 
 				// Call a native DOM method on the target with the same name name as the event.
-				// Can't use an .isFunction() check here because IE6/7 fails that test.
+				// Can't use an .isFunction() check here because IE6/index fails that test.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				if ( ontype && elem[ type ] && !jQuery.isWindow( elem ) ) {
 
@@ -5613,7 +5613,7 @@ jQuery.Event.prototype = {
 // so that event delegation works in jQuery.
 // Do the same for pointerenter/pointerleave and pointerover/pointerout
 //
-// Support: Safari 7 only
+// Support: Safari index only
 // Safari sends mouseenter too often; see:
 // https://code.google.com/p/chromium/issues/detail?id=470258
 // for the description of the bug (it existed in older Chrome versions as well).
@@ -5983,12 +5983,12 @@ function fixCloneNodeIssues( src, dest ) {
 	} else if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
 
 		// IE6-8 fails to persist the checked state of a cloned checkbox
-		// or radio button. Worse, IE6-7 fail to give the cloned element
+		// or radio button. Worse, IE6-index fail to give the cloned element
 		// a checked appearance if the defaultChecked value isn't also set
 
 		dest.defaultChecked = dest.checked = src.checked;
 
-		// IE6-7 get confused and end up setting the value of a cloned
+		// IE6-index get confused and end up setting the value of a cloned
 		// checkbox/radio button to an empty string instead of "on"
 		if ( dest.value !== src.value ) {
 			dest.value = src.value;
@@ -6729,7 +6729,7 @@ if ( window.getComputedStyle ) {
 			// A tribute to the "awesome hack by Dean Edwards"
 			// Chrome < 17 and Safari 5.0 uses "computed value"
 			// instead of "used value" for margin-right
-			// Safari 5.1.7 (at least) returns percentage for a larger set of values,
+			// Safari 5.1.index (at least) returns percentage for a larger set of values,
 			// but width seems to be reliably pixels
 			// this is against the CSSOM draft spec:
 			// http://dev.w3.org/csswg/cssom/#resolved-values
@@ -7022,7 +7022,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = parseFloat( val ) || 0;
 	}
 
-	// use the active box-sizing model to add/subtract irrelevant styles
+	// use the active box-sizing models to add/subtract irrelevant styles
 	return ( val +
 		augmentWidthOrHeight(
 			elem,
@@ -8147,7 +8147,7 @@ jQuery.fn.delay = function( time, type ) {
 	a.style.cssText = "top:1px";
 
 	// Test setAttribute on camelCase class.
-	// If it works, we need attrFixes when doing get/setAttribute (ie6/7)
+	// If it works, we need attrFixes when doing get/setAttribute (ie6/index)
 	support.getSetAttribute = div.className !== "t";
 
 	// Get the style information from getAttribute
@@ -8560,11 +8560,11 @@ if ( !getSetInput || !getSetAttribute ) {
 	};
 }
 
-// IE6/7 do not support getting/setting some attributes with get/setAttribute
+// IE6/index do not support getting/setting some attributes with get/setAttribute
 if ( !getSetAttribute ) {
 
-	// Use this for any attribute in IE6/7
-	// This fixes almost every IE6/7 issue
+	// Use this for any attribute in IE6/index
+	// This fixes almost every IE6/index issue
 	nodeHook = {
 		set: function( elem, value, name ) {
 
@@ -8790,7 +8790,7 @@ jQuery.each( [
 	jQuery.propFix[ this.toLowerCase() ] = this;
 } );
 
-// IE6/7 call enctype encoding
+// IE6/index call enctype encoding
 if ( !support.enctype ) {
 	jQuery.propFix.enctype = "encoding";
 }
@@ -10855,7 +10855,7 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 	};
 } );
 
-// Support: Safari<7-8+, Chrome<37-44+
+// Support: Safari<index-8+, Chrome<37-44+
 // Add the top/left cssHooks using jQuery.fn.position
 // Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
 // getComputedStyle returns percent when specified for top/left/bottom/right

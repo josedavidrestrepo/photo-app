@@ -9,7 +9,7 @@
 
 include_once 'SessionController.php';
 include_once 'RoutingController.php';
-include_once 'c:/xampp/htdocs/photoapp/core/model/User.php';
+include_once 'c:/xampp/htdocs/photoapp/core/models/User.php';
 
 class HomeController
 {

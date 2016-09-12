@@ -263,10 +263,7 @@ fieldset[disabled] .btn-xl.active {
 }
 
 header {
-    background-image: url('../img/header-bg.jpg');
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center center;
+    background: url('../../images/index/header-bg.jpg') no-repeat scroll center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -654,7 +651,7 @@ aside.clients img {
 
 section#contact {
     background-color: #222222;
-    background-image: url('../img/map-image.png');
+    background-image: url('../../images/index/map-image.png');
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -727,7 +724,6 @@ footer {
 footer span.copyright {
     line-height: 40px;
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
     text-transform: none;
 }
 
@@ -735,7 +731,6 @@ footer ul.quicklinks {
     margin-bottom: 0;
     line-height: 40px;
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
     text-transform: none;
 }
 

@@ -1,6 +1,4 @@
-@import compass
-
-$background-color: #F15A5C  
+$background-color: #F15A5C
 $easing-function: cubic-bezier(.06,.63,0,1)
 $animation-duration: 1s
 
@@ -21,7 +19,6 @@ html, body
 label
   display: block
   font-weight: bold
-  font-size: small
   text-transform: uppercase
   font-size: 0.7em
   margin-bottom: 0.35em
@@ -39,10 +36,7 @@ input[type="text"], input[type="password"]
     box-shadow: inset -1px -1px 3px rgba(0, 0, 0, .3)
   
 button
-  padding-left: 1.5em
-  padding-right: 1.5em
-  padding-bottom: 0.5em
-  padding-top: 0.5em
+  padding: 0.5em 1.5em
   border: none
   border-radius: 2px
   background-color: #7E5AF1
@@ -75,7 +69,7 @@ small
   text-align: right
   cursor: pointer
   transform: perspective(1000px) translateZ(1px)
-  transform-origin: 0% 0%
+  transform-origin: 0 0
   transition: all $animation-duration $easing-function
   backface-visibility: hidden
   //border: 1px solid black
@@ -98,7 +92,7 @@ small
     
     
 .login--username-container
-  transform-origin: 100% 0%
+  transform-origin: 100% 0
   transform: perspective(1000px) rotateY(180deg)
   transition: all $animation-duration $easing-function
   background-color:  darken($background-color, 25%)
