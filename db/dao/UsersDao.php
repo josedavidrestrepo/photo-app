@@ -7,8 +7,8 @@
  * Time: 23:53
  */
 
-include_once 'c:/xampp/htdocs/photoapp/core/db/DbConnection.php';
-include_once 'c:/xampp/htdocs/photoapp/core/db/orm/UsersOrm.php';
+include_once 'c:/xampp/htdocs/photoapp/db/DbConnection.php';
+include_once 'c:/xampp/htdocs/photoapp/db/orm/UsersOrm.php';
 
 class UsersDao
 {

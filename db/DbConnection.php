@@ -16,6 +16,9 @@ class DbConnection
     private $userName = "root";
     private $password = "";
 
+    /**
+     * @return bool
+     */
     function dbConnect()
     {
         $this->link = @mysqli_connect($this->hostName, $this->userName, $this->password, $this->databaseName);

@@ -7,7 +7,7 @@
  * Time: 20:47
  */
 
-include_once 'c:/xampp/htdocs/photoapp/core/db/dao/UsersDao.php';
+include_once 'c:/xampp/htdocs/photoapp/db/dao/UsersDao.php';
 include_once 'c:/xampp/htdocs/photoapp/core/controllers/SessionController.php';
 include_once 'c:/xampp/htdocs/photoapp/core/controllers/RoutingController.php';
 
