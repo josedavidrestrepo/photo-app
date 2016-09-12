@@ -18,8 +18,8 @@ $loginView = new LoginView($this->data);
     <meta charset="UTF-8">
     <title>Sign-Up/Login Form</title>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="assets/css/normalize.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../../core/assets/css/normalize.css">
+    <link rel="stylesheet" href="../../core/assets/css/style.css">
     <link rel="stylesheet" href="assets/css/image-picker.css">
 
 
@@ -117,7 +117,7 @@ $loginView = new LoginView($this->data);
 </div> <!-- /form -->
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<script src="assets/js/index.js"></script>
+<script src="../../core/assets/javascripts/index.js"></script>
 <script src="assets/js/image-picker.js"></script>
 
 

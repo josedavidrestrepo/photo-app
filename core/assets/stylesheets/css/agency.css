@@ -650,10 +650,7 @@ aside.clients img {
 }
 
 section#contact {
-    background-color: #222222;
-    background-image: url('../../images/index/map-image.png');
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #222222 url('../../images/index/map-image.png') no-repeat center;
 }
 
 section#contact .section-heading {

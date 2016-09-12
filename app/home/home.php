@@ -28,7 +28,7 @@ $homeView = new HomeView($this->data);
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="assets/css/freelancer.min.css" rel="stylesheet">
+    <link href="../../core/assets/css/freelancer.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -87,7 +87,7 @@ $homeView = new HomeView($this->data);
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="assets/img/profile.png" alt="">
+                    <img class="img-responsive" src="../../core/assets/images/home/profile.png" alt="">
                     <div class="intro-text">
                         <span class="name"><?php $homeView->printName()?></span>
                         <hr class="star-light">
@@ -115,7 +115,7 @@ $homeView = new HomeView($this->data);
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="assets/img/portfolio/cabin.png" class="img-responsive" alt="">
+                        <img src="../../core/assets/images/home/portfolio/cabin.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -125,7 +125,7 @@ $homeView = new HomeView($this->data);
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="assets/img/portfolio/cake.png" class="img-responsive" alt="">
+                        <img src="../../core/assets/images/home/portfolio/cake.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -135,7 +135,7 @@ $homeView = new HomeView($this->data);
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="assets/img/portfolio/circus.png" class="img-responsive" alt="">
+                        <img src="../../core/assets/images/home/portfolio/circus.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -145,7 +145,7 @@ $homeView = new HomeView($this->data);
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="assets/img/portfolio/game.png" class="img-responsive" alt="">
+                        <img src="../../core/assets/images/home/portfolio/game.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -155,7 +155,7 @@ $homeView = new HomeView($this->data);
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="assets/img/portfolio/safe.png" class="img-responsive" alt="">
+                        <img src="../../core/assets/images/home/portfolio/safe.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -165,7 +165,7 @@ $homeView = new HomeView($this->data);
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="assets/img/portfolio/submarine.png" class="img-responsive" alt="">
+                        <img src="../../core/assets/images/home/portfolio/submarine.png" class="img-responsive" alt="">
                     </a>
                 </div>
             </div>
@@ -322,7 +322,8 @@ Copyright &copy; Your Website 2016
                         <div class="modal-body">
                             <h2>Album House</h2>
                             <hr class="star-primary">
-                            <img src="assets/img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
+                            <img src="../../core/assets/images/home/portfolio/cabin.png"
+                                 class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -359,7 +360,8 @@ Copyright &copy; Your Website 2016
                         <div class="modal-body">
                             <h2>Album Food</h2>
                             <hr class="star-primary">
-                            <img src="assets/img/portfolio/cake.png" class="img-responsive img-centered" alt="">
+                            <img src="../../core/assets/images/home/portfolio/cake.png"
+                                 class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -396,7 +398,8 @@ Copyright &copy; Your Website 2016
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="assets/img/portfolio/circus.png" class="img-responsive img-centered" alt="">
+                            <img src="../../core/assets/images/home/portfolio/circus.png"
+                                 class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -433,7 +436,8 @@ Copyright &copy; Your Website 2016
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="assets/img/portfolio/game.png" class="img-responsive img-centered" alt="">
+                            <img src="../../core/assets/images/home/portfolio/game.png"
+                                 class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -470,7 +474,8 @@ Copyright &copy; Your Website 2016
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="assets/img/portfolio/safe.png" class="img-responsive img-centered" alt="">
+                            <img src="../../core/assets/images/home/portfolio/safe.png"
+                                 class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -507,7 +512,8 @@ Copyright &copy; Your Website 2016
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="assets/img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
+                            <img src="../../core/assets/images/home/portfolio/submarine.png"
+                                 class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -541,11 +547,11 @@ Copyright &copy; Your Website 2016
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="assets/js/jqBootstrapValidation.js"></script>
-    <script src="assets/js/contact_me.js"></script>
+    <script src="../../core/assets/javascripts/js/jqBootstrapValidation.js"></script>
+    <script src="../../core/assets/javascripts/js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="assets/js/freelancer.min.js"></script>
+    <script src="../../core/assets/javascripts/js/freelancer.min.js"></script>
 
 </body>
 
