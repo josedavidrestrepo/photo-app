@@ -10,6 +10,7 @@
 include_once 'SessionController.php';
 include_once 'RoutingController.php';
 include_once 'c:/xampp/htdocs/photoapp/core/models/User.php';
+include_once 'c:/xampp/htdocs/photoapp/db/dao/AlbumsDao.php';
 
 class HomeController
 {
@@ -22,10 +23,14 @@ class HomeController
 
     public function load()
     {
-        SessionController::start();
-
         if ($user = SessionController::getUser())
         {
+            $albumsDao = new AlbumsDao();
+
+            if ($albums = $albumsDao->getAlbums($user)) {
+                $user->setAlbums($albums);
+            }
+
             $this->data->user = $user;
 
             require_once '../../app/home/home.php';

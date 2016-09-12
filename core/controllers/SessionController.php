@@ -14,7 +14,7 @@ class SessionController
 
     public static function createSession($user)
     {
-        session_start();
+        self::start();
 
         $_SESSION = array();
 
@@ -24,11 +24,15 @@ class SessionController
         $_SESSION["avatar"] = $user->getAvatar();
     }
 
+    public static function start()
+    {
+        if (!(session_status() === PHP_SESSION_ACTIVE))
+            session_start();
+    }
+
     public static function deleteSession()
     {
-        // Initialize the session.
-        // If you are using session_name("something"), don't forget it now!
-        session_start();
+        self::start();
 
         // Unset all of the session variables.
         $_SESSION = array();
@@ -49,6 +53,8 @@ class SessionController
 
     public static function getUser()
     {
+        self::start();
+
         if (isset($_SESSION["userId"]))
         {
             $user = new User();
@@ -64,11 +70,5 @@ class SessionController
         {
             return NULL;
         }
-    }
-
-    public static function start()
-    {
-        if (!(session_status() === PHP_SESSION_ACTIVE))
-            session_start();
     }
 }

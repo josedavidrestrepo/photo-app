@@ -24,7 +24,12 @@ class LoginController
 
     public function load()
     {
-        require_once '../../app/login/login.php';
+        if ($user = SessionController::getUser()) {
+            RoutingController::redirect('http://localhost/photoapp/app/home');
+        } else {
+            require_once '../../app/login/login.php';
+        }
+
     }
 
     public function login($username, $password)

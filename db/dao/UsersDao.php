@@ -28,18 +28,14 @@ class UsersDao
 
             $sql = "INSERT INTO users(name, username, password, avatar) VALUES('$name', '$username', '$password', '$avatar');";
 
-            if ($this->dbConnection->link->query( $sql)) {
+            if ($this->dbConnection->link->query($sql)) {
                 $response = true;
-            }
-            else
-            {
+            } else {
                 $this->response = $this->dbConnection->link->error;
             }
 
             $this->dbConnection->link->close();
-        }
-        else
-        {
+        } else {
             $this->response = $this->dbConnection->error;
         }
 
@@ -56,7 +52,8 @@ class UsersDao
 
     }
 
-    function getUser($username, $password){
+    function getUser($username, $password)
+    {
 
         $user = NULL;
 
@@ -64,30 +61,22 @@ class UsersDao
 
             $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 
-            if ($result = $this->dbConnection->link->query( $sql)) {
-                if ($result->num_rows == 1)
-                {
-                    if ($rowUser = $result->fetch_array(MYSQLI_ASSOC))
-                    {
+            if ($result = $this->dbConnection->link->query($sql)) {
+                if ($result->num_rows == 1) {
+                    if ($rowUser = $result->fetch_array(MYSQLI_ASSOC)) {
                         $user = UsersOrm::mapUser($rowUser);
                     }
-                }
-                else
-                {
+                } else {
                     $this->response = "Your username or password is invalid";
                 }
 
                 $result->free_result();
-            }
-            else
-            {
+            } else {
                 $this->response = $this->dbConnection->link->error;
             }
 
             $this->dbConnection->link->close();
-        }
-        else
-        {
+        } else {
             $this->response = $this->dbConnection->error;
         }
 
@@ -98,4 +87,6 @@ class UsersDao
     {
         return $this->response;
     }
+
+
 }

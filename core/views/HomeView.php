@@ -33,4 +33,15 @@ class HomeView
         }
     }
 
+    public function printAlbums()
+    {
+
+        $albums = (array)$this->data->user->getAlbums();
+
+        foreach ($albums as $album) {
+            echo '<p>' . $album->getName() . '</p>';
+        }
+
+    }
+
 }

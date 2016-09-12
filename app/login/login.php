@@ -105,7 +105,7 @@ $loginView = new LoginView($this->data);
 
                 <button type="submit" class="button button-block">Get Started</button>
 
-                <p style="color: <?php echo $loginView->getData()->error ?  'red' : 'green' ?> "><?php $loginView->printMessage() ?></p>
+                <p style="color: <?php $loginView->getColor() ?> "><?php $loginView->printMessage() ?></p>
 
             </form>
 

@@ -104,6 +104,7 @@ $homeView = new HomeView($this->data);
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>albums</h2>
+                    <?php $homeView->printAlbums(); ?>
                     <hr class="star-primary">
                 </div>
             </div>

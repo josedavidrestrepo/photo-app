@@ -25,6 +25,11 @@ class LoginView
         $this->data = $data;
     }
 
+    public function getColor()
+    {
+        echo $this->data->error ? 'red' : 'green';
+    }
+
     public function printMessage()
     {
         echo $this->data->message;

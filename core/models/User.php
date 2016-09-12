@@ -14,6 +14,8 @@ class User
     private $password;
     private $avatar;
 
+    private $albums;
+
     public function getUserId()
     {
         return $this->user_id;
@@ -62,5 +64,21 @@ class User
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAlbums()
+    {
+        return $this->albums;
+    }
+
+    /**
+     * @param mixed $albums
+     */
+    public function setAlbums($albums)
+    {
+        $this->albums = $albums;
     }
 }
