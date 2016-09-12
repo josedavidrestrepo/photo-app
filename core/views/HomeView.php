@@ -39,7 +39,19 @@ class HomeView
         $albums = (array)$this->data->user->getAlbums();
 
         foreach ($albums as $album) {
-            echo '<p>' . $album->getName() . '</p>';
+            echo '<div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"> ' . $album->getName() . '</i>
+                            </div>
+                        </div>
+                        
+                        <img src="../../core/assets/images/home/portfolio/cabin.png" class="img-responsive" alt="">
+                    </a>
+                </div>';
+
+
         }
 
     }
