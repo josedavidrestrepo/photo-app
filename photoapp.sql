@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2016 a las 01:16:06
+-- Tiempo de generación: 13-09-2016 a las 03:15:27
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -40,7 +40,9 @@ CREATE TABLE `albums` (
 INSERT INTO `albums` (`album_id`, `name`, `description`, `fk_user_id`) VALUES
   (1, 'Vacaciones', 'Mis vacaciones en guadalajara', 2),
   (2, 'Seminario', 'Seminario en bogotá', 2),
-  (3, 'Bikinis', 'bikinis', 8);
+  (3, 'Bikinis', 'bikinis', 8),
+  (4, 'San Andres', 'prueba', 2),
+  (5, 'Biografia', 'bio', 2);
 
 -- --------------------------------------------------------
 
@@ -61,14 +63,17 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`image_id`, `photo`, `description`, `tittle`, `comments`) VALUES
-  (1,
-   'http://www.visitmexico.com/work/models/VisitMexico30/WebPage/Guadalajara/photoEscudo_Guadalajara_JALGuadMain.jpg',
-   'guadalajara', 'guadalajara', 'guadalajara'),
+  (1, 'http://blog.dadaroom.com/wp-content/uploads/2015/08/guadalajara-dada-room.jpg', 'guadalajara', 'guadalajara',
+   'guadalajara'),
   (2, 'http://www.hghotelgdl.com/wp-content/uploads/2014/04/Catedral_Guadalajara.jpg', 'guadalajara1', 'guadalajara1',
    'guadalajara1'),
   (3,
    'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina-7/teatro-mexico-fotografica-bogota-2015-2.jpg',
-   'teatro mexico', 'teatro mexico', 'teatro mexico');
+   'teatro mexico', 'teatro mexico', 'teatro mexico'),
+  (4, 'http://esphoto500x500.mnstatic.com/isla-de-san-andres_8295925.jpg', 'san andres', 'san andres', 'prueba'),
+  (5,
+   'https://caracoltv-a.akamaihd.net/pmd/3827094934001/201604/3827094934001_4854455756001_200116-ni-o-terremoto-Ecuador.jpg?pubId=3827094934001',
+   'jose david', 'jose david', 'prueba');
 
 -- --------------------------------------------------------
 
@@ -89,7 +94,9 @@ CREATE TABLE `images_x_album` (
 INSERT INTO `images_x_album` (`fk_album_id`, `fk_image_id`, `order_number`) VALUES
   (1, 1, 1),
   (1, 2, 2),
-  (2, 3, 1);
+  (2, 3, 1),
+  (4, 4, 1),
+  (5, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -162,13 +169,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `albums`
   MODIFY `album_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 4;
+  AUTO_INCREMENT = 6;
 --
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
   MODIFY `image_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 4;
+  AUTO_INCREMENT = 6;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --

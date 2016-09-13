@@ -40,20 +40,31 @@ class HomeView
 
         foreach ($albums as $album) {
             echo '<div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"> ' . $album->getName() . '</i>
+                    <a href="../../app/albums?id=' . $album->getAlbumId() . '" class="portfolio-link">
+                        <div class="caption" style="margin-bottom: 15px;">
+                            <div class="caption-content" style="text-align: center; ">
+                                <i class="fa fa-search-plus fa-3x" style="font-size: 2em;"> ' . $album->getName() . '</i>
                             </div>
                         </div>
                         
-                        <img src="../../core/assets/images/home/portfolio/cabin.png" class="img-responsive" alt="">
+                        <img src= ' . $this->getImageUrl($album) . ' class="img-responsive" alt="">
                     </a>
                 </div>';
 
 
         }
 
+    }
+
+    private function getImageUrl($album)
+    {
+        if ($images = $album->getImages()) {
+            $image = $images[0]->getPhoto();
+        } else {
+            $image = "../../core/assets/images/home/portfolio/cabin.png";
+        }
+
+        return $image;
     }
 
 }

@@ -31,8 +31,6 @@ class AlbumsDao
 
             $sql = "SELECT * FROM albums WHERE fk_user_id = " . $user->getUserId();
 
-            echo $sql;
-
             if ($result = $this->dbConnection->link->query($sql)) {
                 while ($rowAlbum = $result->fetch_array(MYSQLI_ASSOC)) {
                     $album = AlbumsOrm::mapAlbum($rowAlbum);

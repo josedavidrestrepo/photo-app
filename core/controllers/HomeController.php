@@ -11,6 +11,7 @@ include_once 'SessionController.php';
 include_once 'RoutingController.php';
 include_once 'c:/xampp/htdocs/photoapp/core/models/User.php';
 include_once 'c:/xampp/htdocs/photoapp/db/dao/AlbumsDao.php';
+include_once 'c:/xampp/htdocs/photoapp/db/dao/ImagesDao.php';
 
 class HomeController
 {
@@ -26,8 +27,16 @@ class HomeController
         if ($user = SessionController::getUser())
         {
             $albumsDao = new AlbumsDao();
+            $imagesDao = new ImagesDao();
 
             if ($albums = $albumsDao->getAlbums($user)) {
+
+                foreach ($albums as $album) {
+                    if ($images = $imagesDao->getFirstImage($album)) {
+                        $album->setImages($images);
+                    }
+                }
+
                 $user->setAlbums($albums);
             }
 

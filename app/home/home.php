@@ -110,6 +110,12 @@ $homeView = new HomeView($this->data);
             </div>
             <div class="row">
                 <?php $homeView->printAlbums(); ?>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="../albums?method=create" class="portfolio-link">
+                        <img src='../../core/assets/images/home/newAlbum.jpeg' class="img-responsive" alt="">
+                        <p style="text-align: center; font-size: 2em;">New Album</p>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
