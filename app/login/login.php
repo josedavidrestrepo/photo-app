@@ -60,7 +60,7 @@ $loginView = new LoginView($this->data);
 
                 <button class="button button-block">Log In</button>
 
-                <p style="color: <?php echo $loginView->getData()->error ?  'red' : 'green' ?> "><?php $loginView->printMessage() ?></p>
+                <p style="color: <?php $loginView->getColor() ?> "><?php $loginView->printMessage() ?></p>
 
             </form>
 
