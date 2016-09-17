@@ -18,8 +18,7 @@ class HomeView
     public function printUserName()
     {
         $user = $this->data->user;
-        if (isset($user))
-        {
+        if (isset($user)) {
             echo $user->getUserName();
         }
     }
@@ -27,8 +26,7 @@ class HomeView
     public function printName()
     {
         $user = $this->data->user;
-        if (isset($user))
-        {
+        if (isset($user)) {
             echo $user->getName();
         }
     }
@@ -39,17 +37,24 @@ class HomeView
         $albums = (array)$this->data->user->getAlbums();
 
         foreach ($albums as $album) {
-            echo '<div class="col-sm-4 portfolio-item">
-                    <a href="../../app/albums?id=' . $album->getAlbumId() . '" class="portfolio-link">
-                        <div class="caption" style="margin-bottom: 15px;">
-                            <div class="caption-content" style="text-align: center; ">
-                                <i class="fa fa-search-plus fa-3x" style="font-size: 2em;"> ' . $album->getName() . '</i>
-                            </div>
-                        </div>
-                        
-                        <img src= ' . $this->getImageUrl($album) . ' class="img-responsive" alt="">
-                    </a>
-                </div>';
+
+            echo '<div class="col s12 m6 l4">
+                <div class="card hoverable">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src=' . $this->getImageUrl($album) . '>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4"> ' . $album->getName() . '<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a href="#">Ver</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">' . $album->getName() . '<i
+                                class="material-icons right">close</i></span>
+                        <p>' . $album->getDescription() . '</p>
+                    </div>
+                </div>
+            </div>';
 
 
         }
