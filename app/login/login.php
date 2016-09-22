@@ -34,43 +34,31 @@ $loginView = new LoginView($this->data);
     </ul>
 
     <div class="tab-content">
-
         <div id="login">
             <h1>Welcome Back!</h1>
-
             <form action="" method="post">
-
                 <div class="field-wrap">
                     <label>
                         Username<span class="req">*</span>
                     </label>
                     <input name="username" type="text" required autocomplete="off"/>
                 </div>
-
                 <div class="field-wrap">
                     <label>
                         Password<span class="req">*</span>
                     </label>
                     <input name="password" type="password" required autocomplete="off"/>
                 </div>
-
                 <p class="forgot"><a href="#">Forgot Password?</a></p>
-
                 <input name="action" type="hidden" value="login"/>
-
                 <button class="button button-block">Log In</button>
-
                 <p style="color: <?php $loginView->getColor() ?> "><?php $loginView->printMessage() ?></p>
-
             </form>
-
         </div>
 
         <div id="signup">
             <h1>Sign Up for Free</h1>
-
             <form action="" method="post">
-
                 <div class="top-row">
                     <div class="field-wrap">
                         <label>
@@ -78,7 +66,6 @@ $loginView = new LoginView($this->data);
                         </label>
                         <input name="firstName" type="text" required autocomplete="off"/>
                     </div>
-
                     <div class="field-wrap">
                         <label>
                             Last Name<span class="req">*</span>
@@ -86,29 +73,22 @@ $loginView = new LoginView($this->data);
                         <input name="lastName" type="text" required autocomplete="off"/>
                     </div>
                 </div>
-
                 <div class="field-wrap">
                     <label>
                         Username<span class="req">*</span>
                     </label>
                     <input name="username" type="text" required autocomplete="off"/>
                 </div>
-
                 <div class="field-wrap">
                     <label>
                         Set A Password<span class="req">*</span>
                     </label>
                     <input name="password" type="password" required autocomplete="off"/>
                 </div>
-
                 <input name="action" type="hidden" value="register"/>
-
                 <button type="submit" class="button button-block">Get Started</button>
-
                 <p style="color: <?php $loginView->getColor() ?> "><?php $loginView->printMessage() ?></p>
-
             </form>
-
         </div>
 
     </div><!-- tab-content -->

@@ -60,7 +60,7 @@ class HomeView
         if ($images = $album->getImages()) {
             $image = $images[0]->getPhoto();
         } else {
-            $image = "../../core/assets/images/home/portfolio/cabin.png";
+            $image = "../../core/assets/images/home/portfolio/submarine.png";
         }
 
         return $image;

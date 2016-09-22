@@ -37,7 +37,8 @@ $homeView = new HomeView($this->data);
             <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
             <a class="btn-large waves-effect waves-light teal accent-4 tooltipped right" data-position="bottom"
                data-delay="50" data-tooltip="Logout" href="../login/index.php?action=logout">
-                <i class="material-icons">exit_to_app</i></a>
+                <i class="material-icons">exit_to_app</i>
+            </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a class="bold" href="#albums"><i class="material-icons left">collections</i>ALBUMS</a></li>
                 <li><a class="bold" href="#about"><i class="material-icons left">extension</i>ABOUT</a></li>
@@ -74,9 +75,11 @@ $homeView = new HomeView($this->data);
         <div class="row">
             <?php $homeView->printAlbums() ?>
             <div class="col s12 m6 l4 center-align btn-add-div">
-                <a class="btn-floating btn-large waves-effect waves-light red btn-add-a tooltipped hoverable"
-                   data-position="right"
-                   data-delay="50" data-tooltip="Add album"><i class="material-icons btn-add-i">add</i></a>
+                <a href="../albums/?action=new-album"
+                   class="btn-floating btn-large waves-effect waves-light red btn-add-a tooltipped hoverable"
+                   data-position="right" data-delay="50" data-tooltip="Add album">
+                    <i class="material-icons btn-add-i">add</i>
+                </a>
             </div>
         </div>
     </div>

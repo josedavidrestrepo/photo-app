@@ -22,6 +22,27 @@ class AlbumsDao
         $this->dbConnection = new DbConnection();
     }
 
+    function insertAlbum($albumName, $albumDescription, $user)
+    {
+        $response = false;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "INSERT INTO albums(name, description, fk_user_id) VALUES('$albumName', '$albumDescription', " . $user->getUserId() . ");";
+
+            if ($this->dbConnection->link->query($sql)) {
+                $response = true;
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $response;
+    }
 
     public function getAlbums($user)
     {
@@ -48,5 +69,10 @@ class AlbumsDao
         }
 
         return $albums;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
     }
 }

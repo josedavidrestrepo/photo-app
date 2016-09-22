@@ -7,9 +7,7 @@ $loginController = new LoginController();
 if (isset($_GET["action"]) && $_GET["action"] == "logout")
 {
     $loginController->logout();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+} else if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $action = $_POST['action'];
     $username = $_POST['username'];
@@ -26,6 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $loginController->login($username, $password);
     }
+} else {
+    $loginController->load();
 }
-
-$loginController->load();
