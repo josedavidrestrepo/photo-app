@@ -54,7 +54,6 @@ class UsersDao
 
     function getUser($username, $password)
     {
-
         $user = NULL;
 
         if ($this->dbConnection->dbConnect()) {

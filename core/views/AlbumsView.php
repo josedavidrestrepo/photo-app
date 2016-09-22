@@ -22,6 +22,13 @@ class AlbumsView
         }
     }
 
+    public function printAlbumName()
+    {
+        if (isset($this->data->album)) {
+            echo $this->data->album->getName();
+        }
+    }
+
     public function getColor()
     {
         echo $this->data->error ? 'red' : 'green';
@@ -30,5 +37,45 @@ class AlbumsView
     public function printMessage()
     {
         echo $this->data->message;
+    }
+
+    public function printAlbumDescription()
+    {
+        if (isset($this->data->album)) {
+            echo $this->data->album->getDescription();
+        }
+    }
+
+    public function printImages()
+    {
+        $images = (array)$this->data->album->getImages();
+
+        foreach ($images as $image) {
+            echo /** @lang HTML */
+                '<div class="col s12 m6 l4">
+                    <div class="card hoverable sticky-action">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src=' . $image->getPhoto() . '>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">' . $image->getTittle() . '
+                                <i class="material-icons right">keyboard_arrow_up</i>                            
+                            </span>
+                            <p class="center-align">
+                                <a class="btn teal accent-4" href="../images/?action=show&image-id=' . $image->getImageId() . '">
+                                    <i class="material-icons">search</i>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">' . $image->getTittle() . '
+                                <i class="material-icons right">keyboard_arrow_down</i>
+                            </span>
+                            <p>' . $image->getDescription() . '</p>
+                            <p>' . $image->getComments() . '</p>
+                        </div>
+                    </div>
+                </div>';
+        }
     }
 }

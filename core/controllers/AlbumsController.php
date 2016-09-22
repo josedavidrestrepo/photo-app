@@ -8,6 +8,7 @@
  */
 
 include_once 'c:/xampp/htdocs/photoapp/db/dao/AlbumsDao.php';
+include_once 'c:/xampp/htdocs/photoapp/db/dao/ImagesDao.php';
 include_once 'SessionController.php';
 include_once 'RoutingController.php';
 
@@ -27,7 +28,7 @@ class AlbumsController
         if ($user = SessionController::getUser()) {
             $this->data->user = $user;
 
-            require_once '../../app/albums/new-album.php';
+            require_once '../../app/albums/new.php';
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
@@ -44,6 +45,28 @@ class AlbumsController
         } else {
             $this->data->error = true;
             $this->data->message = $albumsDao->getResponse();
+        }
+    }
+
+    public function showAlbum($albumId)
+    {
+        if ($user = SessionController::getUser()) {
+
+            $albumsDao = new AlbumsDao();
+            $imagesDao = new ImagesDao();
+
+            if ($album = $albumsDao->getAlbum($albumId)) {
+                if ($images = $imagesDao->getImages($album)) {
+                    $album->setImages($images);
+                }
+            }
+
+            $this->data->album = $album;
+            $this->data->user = $user;
+
+            require_once '../../app/albums/albums.php';
+        } else {
+            RoutingController::redirect('http://localhost/photoapp');
         }
     }
 }

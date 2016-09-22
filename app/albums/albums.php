@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: david
- * Date: 10/09/2016
- * Time: 23:22
+ * Date: 22/09/2016
+ * Time: 3:30
  */
 
 include_once '../../core/views/AlbumsView.php';
@@ -16,7 +16,7 @@ $albumView = new AlbumsView($this->data);
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>New Album</title>
+    <title><?php $albumView->printAlbumName() ?></title>
 
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -46,31 +46,21 @@ $albumView = new AlbumsView($this->data);
 
 <div class="container">
     <div class="row">
-        <h1 class="col s12 center-align">Add a new album!</h1>
-        <form action="" method="post" class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">photo_album</i>
-                    <input id="album_name" name="album_name" type="text" class="validate" length="50">
-                    <label for="album_name">Name</label>
-                </div>
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">mode_edit</i>
-                    <textarea id="album_description" name="album_description" class="materialize-textarea"
-                              length="200"></textarea>
-                    <label for="album_description">Description</label>
-                </div>
-                <div class="input-field col s12 center-align ">
-                    <button class="btn-large waves-effect waves-light teal accent-4">Create
-                        <i class="material-icons right">note_add</i>
-                    </button>
-                </div>
-                <div class="input-field col s12">
-                    <p class="center-align"
-                       style="color: <?php $albumView->getColor() ?> "><?php $albumView->printMessage() ?></p>
-                </div>
-            </div>
-        </form>
+        <h1 class="col s12 center-align"><?php $albumView->printAlbumName() ?></h1>
+        <div class="center-align">
+            <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
+        </div>
+        <h4 class="col s12 center-align"><?php $albumView->printAlbumDescription() ?></h4>
+    </div>
+    <div class="row">
+        <?php $albumView->printImages() ?>
+        <div class="col s12 m6 l4 center-align btn-add-div">
+            <a href="../images/?action=add"
+               class="btn-floating btn-large waves-effect waves-light red btn-add-a tooltipped hoverable"
+               data-position="right" data-delay="50" data-tooltip="Add photo">
+                <i class="material-icons btn-add-i">add</i>
+            </a>
+        </div>
     </div>
 </div>
 

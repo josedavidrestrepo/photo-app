@@ -71,6 +71,32 @@ class AlbumsDao
         return $albums;
     }
 
+    public function getAlbum($albumId)
+    {
+        $album = NULL;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "SELECT * FROM albums WHERE album_id = '$albumId'";
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                if ($rowAlbum = $result->fetch_array(MYSQLI_ASSOC)) {
+                    $album = AlbumsOrm::mapAlbum($rowAlbum);
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $album;
+    }
+
     public function getResponse()
     {
         return $this->response;
