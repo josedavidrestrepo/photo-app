@@ -1,0 +1,46 @@
+.bold {
+    font-weight: bold;
+}
+
+.section-custom {
+    padding: 80px 0;
+}
+
+.intro-text {
+    display: block;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+.skills {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+.separator {
+    font-size: 2.5em;
+}
+
+.btn-add-div {
+    padding: 120px 0 !important;
+}
+
+.btn-add-a {
+    width: 100px !important;;
+    height: 100px !important;;
+}
+
+.btn-add-i {
+    line-height: 100px !important;;
+    font-size: 4rem !important;;
+}
+
+@media (min-width: 768px) {
+    .intro-text {
+        font-size: 4.75em;
+    }
+
+    .skills {
+        font-size: 1.75em;
+    }
+}

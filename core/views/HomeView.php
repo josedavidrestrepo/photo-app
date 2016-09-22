@@ -33,32 +33,26 @@ class HomeView
 
     public function printAlbums()
     {
-
         $albums = (array)$this->data->user->getAlbums();
 
         foreach ($albums as $album) {
-
-            echo '<div class="col s12 m6 l4">
-                <div class="card hoverable">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src=' . $this->getImageUrl($album) . '>
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4"> ' . $album->getName() . '<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">Ver</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">' . $album->getName() . '<i
-                                class="material-icons right">close</i></span>
-                        <p>' . $album->getDescription() . '</p>
-                    </div>
-                </div>
-            </div>';
-
-
+            echo /** @lang HTML */
+                '<div class="col s12 m6 l4">' .
+                '<div class="card hoverable sticky-action">' .
+                '<div class="card-image waves-effect waves-block waves-light">' .
+                '<img class="activator" src=' . $this->getImageUrl($album) . '>' .
+                '</div>' .
+                '<div class="card-content">' .
+                '<span class="card-title activator grey-text text-darken-4">' . $album->getName() . '<i class="material-icons right">keyboard_arrow_up</i></span>' .
+                '<p class="center-align"><a class="btn teal accent-4" href="#"><i class="material-icons">search</i></a></p>' .
+                '</div>' .
+                '<div class="card-reveal">' .
+                '<span class="card-title grey-text text-darken-4">' . $album->getName() . '<i class="material-icons right">keyboard_arrow_down</i></span>' .
+                '<p>' . $album->getDescription() . '</p>' .
+                '</div>' .
+                '</div>' .
+                '</div>';
         }
-
     }
 
     private function getImageUrl($album)
