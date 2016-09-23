@@ -3,12 +3,12 @@
  * Created by PhpStorm.
  * User: david
  * Date: 22/09/2016
- * Time: 3:30
+ * Time: 23:47
  */
 
-include_once '../../core/views/AlbumsView.php';
+include_once '../../core/views/ImagesView.php';
 
-$albumView = new AlbumsView($this->data);
+$imageView = new ImagesView($this->data);
 
 ?>
 
@@ -16,7 +16,7 @@ $albumView = new AlbumsView($this->data);
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?php $albumView->printAlbumName() ?></title>
+    <title>Add Image</title>
 
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -35,7 +35,7 @@ $albumView = new AlbumsView($this->data);
 <div class="navbar-fixed">
     <nav class="blue-grey darken-4">
         <div class="nav-wrapper blue-grey darken-4 container">
-            <a href="../home" class="brand-logo bold"><?php $albumView->printUserName() ?></a>
+            <a href="../home" class="brand-logo bold"><?php $imageView->printUserName() ?></a>
             <a class="btn-large waves-effect waves-light teal accent-4 tooltipped right" data-position="bottom"
                data-delay="50" data-tooltip="Logout" href="../login/index.php?action=logout">
                 <i class="material-icons">exit_to_app</i>
@@ -46,21 +46,45 @@ $albumView = new AlbumsView($this->data);
 
 <div class="container">
     <div class="row">
-        <h1 class="col s12 center-align"><?php $albumView->printAlbumName() ?></h1>
+        <h1 class="col s12 center-align">Add a new image!</h1>
         <div class="center-align">
             <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
         </div>
-        <h4 class="col s12 center-align"><?php $albumView->printAlbumDescription() ?></h4>
-    </div>
-    <div class="row">
-        <?php $albumView->printImages() ?>
-        <div class="col s12 m6 l4 center-align btn-add-div">
-            <a href="../images/?action=add&album-id=<?php $albumView->printAlbumId() ?>"
-               class="btn-floating btn-large waves-effect waves-light red btn-add-a tooltipped hoverable"
-               data-position="right" data-delay="50" data-tooltip="Add photo">
-                <i class="material-icons btn-add-i">add</i>
-            </a>
-        </div>
+        <form action="" method="post" class="col s12">
+            <div class="row">
+                <div class="file-field input-field col s12">
+                    <i class="material-icons prefix">file_upload</i>
+                    <input id="image_photo" name="image_photo" type="url" class="validate" length="767">
+                    <label for="image_photo">Photo</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">photo_album</i>
+                    <input id="image_tittle" name="image_tittle" type="text" class="validate" length="50">
+                    <label for="image_tittle">Tittle</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <textarea id="image_description" name="image_description" class="materialize-textarea"
+                              length="200"></textarea>
+                    <label for="image_description">Description</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">comment</i>
+                    <textarea id="image_comments" name="image_comments" class="materialize-textarea"
+                              length="100"></textarea>
+                    <label for="image_comments">Comments</label>
+                </div>
+                <div class="input-field col s12 center-align ">
+                    <button class="btn-large waves-effect waves-light teal accent-4">Create
+                        <i class="material-icons right">note_add</i>
+                    </button>
+                </div>
+                <div class="input-field col s12">
+                    <p class="center-align"
+                       style="color: <?php $imageView->getColor() ?> "><?php $imageView->printMessage() ?></p>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
