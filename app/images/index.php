@@ -16,16 +16,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imageDescription = $_POST['image_description'];
     $imageComments = $_POST['image_comments'];
 
-    if (isset($_GET["image-id"])) {
-        $imageId = $_GET["image-id"];
-    } else {
-        throw new Exception("");
-    }
 
     if (isset($_GET["action"])) {
         if ($_GET["action"] == "add") {
-            $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId);
+            if (isset($_GET["album-id"])) {
+                $albumId = $_GET["album-id"];
+            } else {
+                throw new Exception("");
+            }
+            $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId);
         } else if ($_GET["action"] == "edit") {
+            if (isset($_GET["image-id"])) {
+                $imageId = $_GET["image-id"];
+            } else {
+                throw new Exception("");
+            }
             $imageController->editImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId);
         }
     }
