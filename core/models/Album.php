@@ -11,6 +11,7 @@ class Album
     private $album_id;
     private $name;
     private $description;
+    private $fkUserId;
 
     private $images;
 
@@ -60,6 +61,22 @@ class Album
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFkUserId()
+    {
+        return $this->fkUserId;
+    }
+
+    /**
+     * @param mixed $fkUserId
+     */
+    public function setFkUserId($fkUserId)
+    {
+        $this->fkUserId = $fkUserId;
     }
 
     /**

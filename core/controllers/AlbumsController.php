@@ -61,6 +61,11 @@ class AlbumsController
                 }
             }
 
+            if ($album->getFkUserId() != $user->getUserId()) {
+                require_once '../../app/errors/page-404.html';
+                exit();
+            }
+
             $this->data->album = $album;
             $this->data->user = $user;
 

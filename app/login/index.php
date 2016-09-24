@@ -4,26 +4,26 @@ include_once '../../core/controllers/LoginController.php';
 
 $loginController = new LoginController();
 
-if (isset($_GET["action"]) && $_GET["action"] == "logout")
-{
-    $loginController->logout();
-} else if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    $action = $_POST['action'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+try {
+    if (isset($_GET["action"]) && $_GET["action"] == "logout") {
+        $loginController->logout();
+    } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $action = $_POST['action'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-    if ($action == "register")
-    {
-        $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
-        $avatar = "prueba.jpg";
+        if ($action == "register") {
+            $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
+            $avatar = "prueba.jpg";
 
-        $loginController->register($name, $username, $password, $avatar);
+            $loginController->register($name, $username, $password, $avatar);
+        } else if ($action == "login") {
+            $loginController->login($username, $password);
+        }
     }
-    else if ($action == "login")
-    {
-        $loginController->login($username, $password);
-    }
-} else {
+
     $loginController->load();
+
+} catch (Exception $e) {
+    require_once '../errors/page-404.html';
 }
