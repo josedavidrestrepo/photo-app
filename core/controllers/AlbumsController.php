@@ -69,4 +69,19 @@ class AlbumsController
             RoutingController::redirect('http://localhost/photoapp');
         }
     }
+
+    public function deleteAlbum($albumId)
+    {
+        if ($user = SessionController::getUser()) {
+            $albumsDao = new AlbumsDao();
+
+            if ($album = $albumsDao->deleteAlbums($albumId, $user->getUserId())) {
+                require_once '../../app/home/index.php';
+            } else {
+                require_once '../errors/page-404.html';
+            }
+        } else {
+            RoutingController::redirect('http://localhost/photoapp');
+        }
+    }
 }

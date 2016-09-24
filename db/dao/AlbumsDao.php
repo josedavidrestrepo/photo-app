@@ -44,6 +44,26 @@ class AlbumsDao
         return $response;
     }
 
+    public function deleteAlbums($idAlbum, $userId)
+    {
+
+        $response = false;
+
+        if ($this->dbConnection->dbConnect()) {
+            $sql = "DELETE FROM albums WHERE album_id =" . $idAlbum . " AND fk_user_id = " . $userId . ";";
+            if ($this->dbConnection->link->query($sql)) {
+                $response = true;
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $response;
+    }
     public function getAlbums($user)
     {
         $albums = array();
