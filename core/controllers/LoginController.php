@@ -37,8 +37,6 @@ class LoginController
         $usersDao = new UsersDao();
         $password = password_hash($password, PASSWORD_DEFAULT) . "\n";
 
-        echo $password;
-
         if ($user = $usersDao->getUser($username))
         {
 
