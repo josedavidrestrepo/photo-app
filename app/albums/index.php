@@ -17,18 +17,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $albumController->createAlbum($albumName, $albumDescription);
 }
 
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "add") {
+switch ($_GET["action"]) {
+    case "add":
         $albumController->loadNewAlbum();
-    } else if ($_GET["action"] == "show") {
+        break;
+    case "show":
         if (isset($_GET["album-id"])) {
             $albumController->showAlbum($_GET["album-id"]);
         } else {
             require_once '../errors/page-404.html';
         }
-    } else {
+        break;
+    case "edit":
+        echo "i equals 2";
+        break;
+    case "delete":
+        echo "i equals 2";
+        break;
+    default:
         require_once '../errors/page-404.html';
-    }
-} else {
-    require_once '../errors/page-404.html';
+        break;
 }
