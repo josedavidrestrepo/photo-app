@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2016 a las 03:15:27
+-- Tiempo de generación: 24-09-2016 a las 22:44:16
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -27,10 +27,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `albums` (
-  `album_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `album_id`    int(11)      NOT NULL,
+  `name`        VARCHAR(50)  NOT NULL,
   `description` varchar(200) NOT NULL,
-  `fk_user_id` int(11) NOT NULL
+  `fk_user_id`  int(11)      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -38,11 +38,13 @@ CREATE TABLE `albums` (
 --
 
 INSERT INTO `albums` (`album_id`, `name`, `description`, `fk_user_id`) VALUES
-  (1, 'Vacaciones', 'Mis vacaciones en guadalajara', 2),
-  (2, 'Seminario', 'Seminario en bogotá', 2),
-  (3, 'Bikinis', 'bikinis', 8),
-  (4, 'San Andres', 'prueba', 2),
-  (5, 'Biografia', 'bio', 2);
+  (19, 'Vacaciones', 'Mis vacaciones en guadalajara', 17),
+  (20, 'Seminario', 'Seminario de ingenieria de software', 17),
+  (21, 'San Andres', 'Vacaciones en San Andres', 17),
+  (22, 'Biografia', 'Fotos de perfil', 17),
+  (23, 'Triatlon', 'Triatlon', 17),
+  (24, 'Musica', 'Algunas instrumentos Musicales', 17),
+  (25, 'Aplicaciones', 'Aplicaciones desarrolladas', 17);
 
 -- --------------------------------------------------------
 
@@ -51,11 +53,11 @@ INSERT INTO `albums` (`album_id`, `name`, `description`, `fk_user_id`) VALUES
 --
 
 CREATE TABLE `images` (
-  `image_id` int(11) NOT NULL,
-  `photo` varchar(767) NOT NULL,
+  `image_id`    int(11)      NOT NULL,
+  `photo`       varchar(767) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
-  `tittle` varchar(100) NOT NULL,
-  `comments` varchar(100) DEFAULT NULL
+  `tittle`      VARCHAR(50)  NOT NULL,
+  `comments`    varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -63,17 +65,21 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`image_id`, `photo`, `description`, `tittle`, `comments`) VALUES
-  (1, 'http://blog.dadaroom.com/wp-content/uploads/2015/08/guadalajara-dada-room.jpg', 'guadalajara', 'guadalajara',
-   'guadalajara'),
-  (2, 'http://www.hghotelgdl.com/wp-content/uploads/2014/04/Catedral_Guadalajara.jpg', 'guadalajara1', 'guadalajara1',
-   'guadalajara1'),
-  (3,
-   'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina-7/teatro-mexico-fotografica-bogota-2015-2.jpg',
-   'teatro mexico', 'teatro mexico', 'teatro mexico'),
-  (4, 'http://esphoto500x500.mnstatic.com/isla-de-san-andres_8295925.jpg', 'san andres', 'san andres', 'prueba'),
-  (5,
-   'https://caracoltv-a.akamaihd.net/pmd/3827094934001/201604/3827094934001_4854455756001_200116-ni-o-terremoto-Ecuador.jpg?pubId=3827094934001',
-   'jose david', 'jose david', 'prueba');
+  (15, 'http://www.hghotelgdl.com/wp-content/uploads/2014/04/Catedral_Guadalajara.jpg', 'Guadalajara', 'Catedral',
+   'Guadalajara'),
+  (16, 'http://69.64.52.17/conaquic_guadalajara/images/guadalajara-3-ok.jpg', '', 'Federacion', ''),
+  (18, 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/1295/Guadalajara-62639.jpg', '', 'Guadalajara-62639', ''),
+  (19, 'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina-7/teatro-mexico-fotografica-bogota-2015-2.jpg', '', 'Teatro Mexico 1', ''),
+  (20, 'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina-5/teatro-mexico-cumbre-mundial-de-arte-y-cultura-para-la-paz-02.jpg', '', 'Teatro Mexico 2', ''),
+  (21, 'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina/auditorio-jorge-enrique-molina-02.jpg', '', 'Teatro Mexico 3', ''),
+  (22, 'https://lugaresdeguadalajara.files.wordpress.com/2014/07/catedral-de-guadalajara.jpg', '', 'Catedral', ''),
+  (23, 'http://www.cruceroturismo.net/images/SANANDRES.jpg', '', 'San Andres', ''),
+  (24, 'https://unidos-por-colombia.wikispaces.com/file/view/san_andres7.jpg/272496054/san_andres7.jpg', '', 'Hotel', ''),
+  (25, 'https://caracoltv-a.akamaihd.net/pmd/3827094934001/201604/3827094934001_4854455756001_200116-ni-o-terremoto-Ecuador.jpg?pubId=3827094934001', '', 'Biografia', ''),
+  (26, 'http://www.publimetro.co/_internal/gxml!0/r0dc21o2f3vste5s7ezej9x3a10rp3w$48d3dxoia4twsga2mfnjetdd2594834/Captura-de-pantalla-2016-04-20-a-las-7.jpeg', '', 'Familia', ''),
+  (27, 'http://farm8.staticflickr.com/7268/7489124186_0e0e5008e5_o.jpg', 'Una guitarra', 'Guitarra', ''),
+  (28, 'http://1.bp.blogspot.com/_lZEwyJQMV9Q/TTbaaKHYezI/AAAAAAAAL0Q/PjNx1bIS2r8/s1600/TRIATLON6.jpg', '', 'Triatlon',
+   '');
 
 -- --------------------------------------------------------
 
@@ -82,9 +88,9 @@ INSERT INTO `images` (`image_id`, `photo`, `description`, `tittle`, `comments`) 
 --
 
 CREATE TABLE `images_x_album` (
-  `fk_album_id` int(11) NOT NULL,
-  `fk_image_id` int(11) NOT NULL,
-  `order_number` int(11) NOT NULL
+  `fk_album_id`  int(11) NOT NULL,
+  `fk_image_id`  int(11) NOT NULL,
+  `order_number` INT(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -92,11 +98,19 @@ CREATE TABLE `images_x_album` (
 --
 
 INSERT INTO `images_x_album` (`fk_album_id`, `fk_image_id`, `order_number`) VALUES
-  (1, 1, 1),
-  (1, 2, 2),
-  (2, 3, 1),
-  (4, 4, 1),
-  (5, 5, 1);
+  (19, 15, NULL),
+  (19, 16, NULL),
+  (19, 18, NULL),
+  (19, 22, NULL),
+  (20, 19, NULL),
+  (20, 20, NULL),
+  (20, 21, NULL),
+  (21, 23, NULL),
+  (21, 24, NULL),
+  (22, 25, NULL),
+  (22, 26, NULL),
+  (23, 28, NULL),
+  (24, 27, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,13 +131,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `username`, `password`, `avatar`) VALUES
-(2, 'Jose David Restrepo', 'jdavidr', 'admin', 'prueba3.jpg'),
-(4, 'Samuel Rendon', 'srendon', 'admin', 'prueba.jpg'),
-  (5, 'Wilson Ospina', 'wospina', 'admin', 'prueba.jpg'),
-  (6, 'Maria Elena Duque', 'malena', 'admin', 'prueba.jpg'),
-  (7, 'Samuel Rendon', 'samren', 'admin', 'prueba.jpg'),
-  (8, 'Daniel Leon', 'dleon', 'admin', 'prueba.jpg'),
-  (12, 'wilson ospina', 'wrgospina', 'admin', 'prueba.jpg');
+  (17, 'Jose David Restrepo Duque', 'jdavidr', '$2y$10$c6QhYoRAlZ5KUq7Hys51N.iqakLXHd3EEl3bKunK9bQN/p2L5eP2K',
+   'prueba.jpg');
 
 --
 -- Índices para tablas volcadas
@@ -169,19 +178,19 @@ ALTER TABLE `users`
 --
 ALTER TABLE `albums`
   MODIFY `album_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 6;
+  AUTO_INCREMENT = 26;
 --
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
   MODIFY `image_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 6;
+  AUTO_INCREMENT = 29;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 13;
+  AUTO_INCREMENT = 18;
 --
 -- Restricciones para tablas volcadas
 --
@@ -199,7 +208,9 @@ ALTER TABLE `albums`
 --
 ALTER TABLE `images_x_album`
   ADD CONSTRAINT `ck_fk_album_id` FOREIGN KEY (`fk_album_id`) REFERENCES `albums` (`album_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ck_fk_image_id` FOREIGN KEY (`fk_image_id`) REFERENCES `images` (`image_id`);
+  ADD CONSTRAINT `ck_fk_image_id` FOREIGN KEY (`fk_image_id`) REFERENCES `images` (`image_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
