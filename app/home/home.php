@@ -77,7 +77,7 @@ $homeView = new HomeView($this->data);
             <div class="col s12 m6 l4 center-align btn-add-div">
                 <a href="../albums/?action=add"
                    class="btn-floating btn-large waves-effect waves-light red btn-add-a tooltipped hoverable"
-                   data-position="right" data-delay="50" data-tooltip="Add album">
+                   data-position="right" data-delay="50" data-tooltip="Add Album">
                     <i class="material-icons btn-add-i">add</i>
                 </a>
             </div>

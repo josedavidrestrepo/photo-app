@@ -35,11 +35,9 @@ class LoginController
     public function login($username, $password)
     {
         $usersDao = new UsersDao();
-        $password = password_hash($password, PASSWORD_DEFAULT) . "\n";
 
         if ($user = $usersDao->getUser($username))
         {
-
             if (password_verify($password, $user->getPassword())) {
                 SessionController::createSession($user);
                 RoutingController::redirect('http://localhost/photoapp/app/home');
@@ -58,7 +56,7 @@ class LoginController
     public function register($name, $username, $password, $avatar)
     {
         $usersDao = new UsersDao();
-        $password = password_hash($password, PASSWORD_DEFAULT) . "\n";
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         if ($usersDao->insertUser($name, $username, $password, $avatar))
         {

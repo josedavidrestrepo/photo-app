@@ -57,7 +57,7 @@ $albumView = new AlbumsView($this->data);
         <div class="col s12 m6 l4 center-align btn-add-div">
             <a href="../images/?action=add&album-id=<?php $albumView->printAlbumId() ?>"
                class="btn-floating btn-large waves-effect waves-light red btn-add-a tooltipped hoverable"
-               data-position="right" data-delay="50" data-tooltip="Add photo">
+               data-position="right" data-delay="50" data-tooltip="Add Image">
                 <i class="material-icons btn-add-i">add</i>
             </a>
         </div>
