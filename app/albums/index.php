@@ -29,10 +29,18 @@ switch ($_GET["action"]) {
         }
         break;
     case "edit":
-        echo "i equals 2";
+        if (isset($_GET["album-id"])) {
+            $albumController->editAlbum($_GET["album-id"]);
+        } else {
+            require_once '../errors/page-404.html';
+        }
         break;
     case "delete":
-        echo "i equals 2";
+        if (isset($_GET["album-id"])) {
+            $albumController->deleteAlbum($_GET["album-id"]);
+        } else {
+            require_once '../errors/page-404.html';
+        }
         break;
     default:
         require_once '../errors/page-404.html';
