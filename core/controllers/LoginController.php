@@ -35,11 +35,20 @@ class LoginController
     public function login($username, $password)
     {
         $usersDao = new UsersDao();
+        $password = password_hash($password, PASSWORD_DEFAULT) . "\n";
 
-        if ($user = $usersDao->getUser($username,$password))
+        echo $password;
+
+        if ($user = $usersDao->getUser($username))
         {
-            SessionController::createSession($user);
-            RoutingController::redirect('http://localhost/photoapp/app/home');
+
+            if (password_verify($password, $user->getPassword())) {
+                SessionController::createSession($user);
+                RoutingController::redirect('http://localhost/photoapp/app/home');
+            } else {
+                $this->data->error = true;
+                $this->data->message = "Your username or password is invalid";
+            }
         }
         else
         {
@@ -51,6 +60,7 @@ class LoginController
     public function register($name, $username, $password, $avatar)
     {
         $usersDao = new UsersDao();
+        $password = password_hash($password, PASSWORD_DEFAULT) . "\n";
 
         if ($usersDao->insertUser($name, $username, $password, $avatar))
         {

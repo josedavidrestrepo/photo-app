@@ -52,13 +52,13 @@ class UsersDao
 
     }
 
-    function getUser($username, $password)
+    function getUser($username)
     {
         $user = NULL;
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+            $sql = "SELECT * FROM users WHERE username = '$username' ";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($result->num_rows == 1) {
