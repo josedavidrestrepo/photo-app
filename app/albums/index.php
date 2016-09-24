@@ -16,33 +16,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $albumController->createAlbum($albumName, $albumDescription);
 }
-
-switch ($_GET["action"]) {
-    case "add":
-        $albumController->loadNewAlbum();
-        break;
-    case "show":
-        if (isset($_GET["album-id"])) {
-            $albumController->showAlbum($_GET["album-id"]);
-        } else {
-            require_once '../errors/page-404.html';
+try {
+    if (isset($_GET["action"])) {
+        switch ($_GET["action"]) {
+            case "add":
+                $albumController->loadNewAlbum();
+                break;
+            case "show":
+                if (isset($_GET["album-id"])) {
+                    $albumController->showAlbum($_GET["album-id"]);
+                } else {
+                    throw new Exception("");
+                }
+                break;
+            case "edit":
+                if (isset($_GET["album-id"])) {
+                    $albumController->editAlbum($_GET["album-id"]);
+                } else {
+                    require_once '../errors/page-404.html';
+                }
+                break;
+            case "delete":
+                if (isset($_GET["album-id"])) {
+                    $albumController->deleteAlbum($_GET["album-id"]);
+                } else {
+                    require_once '../errors/page-404.html';
+                }
+                break;
+            default:
+                throw new Exception("");
+                break;
         }
-        break;
-    case "edit":
-        if (isset($_GET["album-id"])) {
-            $albumController->editAlbum($_GET["album-id"]);
-        } else {
-            require_once '../errors/page-404.html';
-        }
-        break;
-    case "delete":
-        if (isset($_GET["album-id"])) {
-            $albumController->deleteAlbum($_GET["album-id"]);
-        } else {
-            require_once '../errors/page-404.html';
-        }
-        break;
-    default:
-        require_once '../errors/page-404.html';
-        break;
+    } else {
+        throw new Exception("");
+    }
+} catch (Exception $e) {
+    require_once '../errors/page-404.html';
 }

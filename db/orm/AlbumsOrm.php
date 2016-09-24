@@ -19,6 +19,7 @@ class AlbumsOrm
         $album->setAlbumId($rowAlbum["album_id"]);
         $album->setName($rowAlbum["name"]);
         $album->setDescription($rowAlbum["description"]);
+        $album->setFkUserId($rowAlbum["fk_user_id"]);
 
         return $album;
     }

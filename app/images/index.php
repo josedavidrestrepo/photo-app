@@ -10,45 +10,58 @@ include_once '../../core/controllers/ImagesController.php';
 
 $imageController = new ImagesController();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $imagePhoto = $_POST['image_photo'];
-    $imageTittle = $_POST['image_tittle'];
-    $imageDescription = $_POST['image_description'];
-    $imageComments = $_POST['image_comments'];
-
-
+try {
     if (isset($_GET["action"])) {
-        if ($_GET["action"] == "add") {
-            if (isset($_GET["album-id"])) {
-                $albumId = $_GET["album-id"];
-            } else {
-                throw new Exception("");
-            }
-            $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId);
-        } else if ($_GET["action"] == "edit") {
-            if (isset($_GET["image-id"])) {
-                $imageId = $_GET["image-id"];
-            } else {
-                throw new Exception("");
-            }
-            $imageController->editImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId);
+        $action = $_GET["action"];
+        switch ($action) {
+            case "add":
+                if (isset($_GET["album-id"])) {
+                    $albumId = $_GET["album-id"];
+                } else {
+                    throw new Exception();
+                }
+                break;
+            case "edit":
+                if (isset($_GET["image-id"])) {
+                    $imageId = $_GET["image-id"];
+                } else {
+                    throw new Exception();
+                }
+                break;
+            default:
+                throw new Exception();
         }
     }
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $imagePhoto = $_POST['image_photo'];
+        $imageTittle = $_POST['image_tittle'];
+        $imageDescription = $_POST['image_description'];
+        $imageComments = $_POST['image_comments'];
 
-}
+        switch ($action) {
+            case "add":
+                $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId);
+                break;
+            case "edit":
+                $imageController->editImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId);
+                break;
+            default:
+                throw new Exception();
+        }
+    }
 
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "add") {
-        $imageController->loadNewImage();
-    } else if ($_GET["action"] == "edit") {
-        if (isset($_GET["image-id"])) {
-            $imageId = $_GET["image-id"];
+    switch ($action) {
+        case "add":
+            $imageController->loadNewImage();
+            break;
+        case "edit":
             $imageController->loadEditImage($imageId);
-        } else {
-            require_once '../errors/page-404.html';
-        }
+            break;
+        default:
+            throw new Exception();
     }
-} else {
+
+} catch (Exception $e) {
     require_once '../errors/page-404.html';
 }
