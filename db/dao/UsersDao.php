@@ -26,10 +26,17 @@ class UsersDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "INSERT INTO users(name, username, password, avatar) VALUES('$name', '$username', '$password', '$avatar');";
+            $sql1 = "INSERT INTO persons(name) VALUES('$name')";
 
-            if ($this->dbConnection->link->query($sql)) {
-                $response = true;
+            if ($this->dbConnection->link->query($sql1)) {
+                $last_id = $this->dbConnection->link->insert_id;
+                $sql2 = "INSERT INTO users(username, password, avatar, fk_person_id) VALUES('$username', '$password', '$avatar','$last_id');";
+
+                if ($this->dbConnection->link->query($sql2)) {
+                    $response = true;
+                } else {
+                    $this->response = $this->dbConnection->link->error;
+                }
             } else {
                 $this->response = $this->dbConnection->link->error;
             }
@@ -58,7 +65,7 @@ class UsersDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM users WHERE username = '$username' ";
+            $sql = "SELECT * FROM users INNER JOIN persons ON person_id = fk_person_id WHERE username = '$username' ";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($result->num_rows == 1) {

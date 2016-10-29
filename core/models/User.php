@@ -9,31 +9,22 @@
 class User
 {
     private $user_id;
-    private $name;
     private $username;
     private $password;
     private $avatar;
 
+    private $person;
     private $albums;
 
     public function getUserId()
     {
+
         return $this->user_id;
     }
 
     public function setUserId($user_id)
     {
         $this->user_id = $user_id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
     }
 
     public function getUsername()
@@ -69,6 +60,22 @@ class User
     /**
      * @return mixed
      */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getAlbums()
     {
         return $this->albums;
@@ -81,4 +88,6 @@ class User
     {
         $this->albums = $albums;
     }
+
+
 }

@@ -8,6 +8,7 @@
  */
 
 include_once 'c:/xampp/htdocs/photoapp/core/models/User.php';
+include_once 'c:/xampp/htdocs/photoapp/core/models/Person.php';
 
 class SessionController
 {
@@ -20,7 +21,7 @@ class SessionController
 
         $_SESSION["userId"] = $user->getUserId();
         $_SESSION["username"] = $user->getUsername();
-        $_SESSION["name"] = $user->getName();
+        $_SESSION["name"] = $user->getPerson()->getName();
         $_SESSION["avatar"] = $user->getAvatar();
     }
 
@@ -57,12 +58,17 @@ class SessionController
 
         if (isset($_SESSION["userId"]))
         {
+            $person = new Person();
+
+            $person->setName($_SESSION["name"]);
+
             $user = new User();
 
             $user->setUserId($_SESSION["userId"]);
             $user->setUsername($_SESSION["username"]);
-            $user->setName($_SESSION["name"]);
             $user->setAvatar($_SESSION["avatar"]);
+
+            $user->setPerson($person);
 
             return $user;
         }

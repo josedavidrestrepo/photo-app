@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-09-2016 a las 22:44:16
+-- Tiempo de generación: 29-10-2016 a las 12:57:35
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -27,10 +27,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `albums` (
-  `album_id`    int(11)      NOT NULL,
+  `album_id`    INT(11)      NOT NULL,
   `name`        VARCHAR(50)  NOT NULL,
   `description` varchar(200) NOT NULL,
-  `fk_user_id`  int(11)      NOT NULL
+  `fk_user_id`  INT(11)      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -41,10 +41,10 @@ INSERT INTO `albums` (`album_id`, `name`, `description`, `fk_user_id`) VALUES
   (19, 'Vacaciones', 'Mis vacaciones en guadalajara', 17),
   (20, 'Seminario', 'Seminario de ingenieria de software', 17),
   (21, 'San Andres', 'Vacaciones en San Andres', 17),
-  (22, 'Biografia', 'Fotos de perfil', 17),
-  (23, 'Triatlon', 'Triatlon', 17),
-  (24, 'Musica', 'Algunas instrumentos Musicales', 17),
-  (25, 'Aplicaciones', 'Aplicaciones desarrolladas', 17);
+  (25, 'Aplicaciones', 'Aplicaciones desarrolladas', 17),
+  (27, 'Costa atlantica', 'Paseo por la costa atlantica', 18),
+  (28, 'Vacaciones', 'En la costa', 19),
+  (29, 'Entregable', '', 19);
 
 -- --------------------------------------------------------
 
@@ -53,11 +53,11 @@ INSERT INTO `albums` (`album_id`, `name`, `description`, `fk_user_id`) VALUES
 --
 
 CREATE TABLE `images` (
-  `image_id`    int(11)      NOT NULL,
-  `photo`       varchar(767) NOT NULL,
+  `image_id`    INT(11)      NOT NULL,
+  `photo`       VARCHAR(767) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `tittle`      VARCHAR(50)  NOT NULL,
-  `comments`    varchar(100) DEFAULT NULL
+  `comments`    VARCHAR(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -65,21 +65,7 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`image_id`, `photo`, `description`, `tittle`, `comments`) VALUES
-  (15, 'http://www.hghotelgdl.com/wp-content/uploads/2014/04/Catedral_Guadalajara.jpg', 'Guadalajara', 'Catedral',
-   'Guadalajara'),
-  (16, 'http://69.64.52.17/conaquic_guadalajara/images/guadalajara-3-ok.jpg', '', 'Federacion', ''),
-  (18, 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/1295/Guadalajara-62639.jpg', '', 'Guadalajara-62639', ''),
-  (19, 'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina-7/teatro-mexico-fotografica-bogota-2015-2.jpg', '', 'Teatro Mexico 1', ''),
-  (20, 'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina-5/teatro-mexico-cumbre-mundial-de-arte-y-cultura-para-la-paz-02.jpg', '', 'Teatro Mexico 2', ''),
-  (21, 'http://www.ucentral.edu.co/images/galerias/auditorios-teatros/jorge-enrique-molina/auditorio-jorge-enrique-molina-02.jpg', '', 'Teatro Mexico 3', ''),
-  (22, 'https://lugaresdeguadalajara.files.wordpress.com/2014/07/catedral-de-guadalajara.jpg', '', 'Catedral', ''),
-  (23, 'http://www.cruceroturismo.net/images/SANANDRES.jpg', '', 'San Andres', ''),
-  (24, 'https://unidos-por-colombia.wikispaces.com/file/view/san_andres7.jpg/272496054/san_andres7.jpg', '', 'Hotel', ''),
-  (25, 'https://caracoltv-a.akamaihd.net/pmd/3827094934001/201604/3827094934001_4854455756001_200116-ni-o-terremoto-Ecuador.jpg?pubId=3827094934001', '', 'Biografia', ''),
-  (26, 'http://www.publimetro.co/_internal/gxml!0/r0dc21o2f3vste5s7ezej9x3a10rp3w$48d3dxoia4twsga2mfnjetdd2594834/Captura-de-pantalla-2016-04-20-a-las-7.jpeg', '', 'Familia', ''),
-  (27, 'http://farm8.staticflickr.com/7268/7489124186_0e0e5008e5_o.jpg', 'Una guitarra', 'Guitarra', ''),
-  (28, 'http://1.bp.blogspot.com/_lZEwyJQMV9Q/TTbaaKHYezI/AAAAAAAAL0Q/PjNx1bIS2r8/s1600/TRIATLON6.jpg', '', 'Triatlon',
-   '');
+  (376, 'Captura(1).png', 'cap', 'cap', 'cap');
 
 -- --------------------------------------------------------
 
@@ -88,8 +74,8 @@ INSERT INTO `images` (`image_id`, `photo`, `description`, `tittle`, `comments`) 
 --
 
 CREATE TABLE `images_x_album` (
-  `fk_album_id`  int(11) NOT NULL,
-  `fk_image_id`  int(11) NOT NULL,
+  `fk_album_id`  INT(11) NOT NULL,
+  `fk_image_id`  INT(11) NOT NULL,
   `order_number` INT(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -98,19 +84,32 @@ CREATE TABLE `images_x_album` (
 --
 
 INSERT INTO `images_x_album` (`fk_album_id`, `fk_image_id`, `order_number`) VALUES
-  (19, 15, NULL),
-  (19, 16, NULL),
-  (19, 18, NULL),
-  (19, 22, NULL),
-  (20, 19, NULL),
-  (20, 20, NULL),
-  (20, 21, NULL),
-  (21, 23, NULL),
-  (21, 24, NULL),
-  (22, 25, NULL),
-  (22, 26, NULL),
-  (23, 28, NULL),
-  (24, 27, NULL);
+  (19, 376, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `persons`
+--
+
+CREATE TABLE `persons` (
+  `person_id` INT(11)      NOT NULL,
+  `name`      VARCHAR(100) NOT NULL
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = latin1;
+
+--
+-- Volcado de datos para la tabla `persons`
+--
+
+INSERT INTO `persons` (`person_id`, `name`) VALUES
+  (1, 'Jose David Restrepo Duque'),
+  (2, 'Samuel Rendon'),
+  (3, 'Danny Alvarez'),
+  (6, 'Wilson Ospina'),
+  (7, 'Maria Elena Duque'),
+  (8, 'Alejandra Zapata');
 
 -- --------------------------------------------------------
 
@@ -119,20 +118,24 @@ INSERT INTO `images_x_album` (`fk_album_id`, `fk_image_id`, `order_number`) VALU
 --
 
 CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `avatar` varchar(100) DEFAULT NULL
+  `user_id`      int(11) NOT NULL,
+  `username`     varchar(100) NOT NULL,
+  `password`     varchar(100) NOT NULL,
+  `avatar`       VARCHAR(100) DEFAULT NULL,
+  `fk_person_id` INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`user_id`, `name`, `username`, `password`, `avatar`) VALUES
-  (17, 'Jose David Restrepo Duque', 'jdavidr', '$2y$10$c6QhYoRAlZ5KUq7Hys51N.iqakLXHd3EEl3bKunK9bQN/p2L5eP2K',
-   'prueba.jpg');
+INSERT INTO `users` (`user_id`, `username`, `password`, `avatar`, `fk_person_id`) VALUES
+  (17, 'jdavidr', '$2y$10$c6QhYoRAlZ5KUq7Hys51N.iqakLXHd3EEl3bKunK9bQN/p2L5eP2K', 'prueba.jpg', 1),
+  (18, 'srendon', '$2y$10$ghXuQIZZ6tXSErq4kdhCoOUdbe0.b8iPnfprm54pq6kuUU48Z4keK', 'prueba.jpg', 2),
+  (19, 'dalvarez', '$2y$10$gE5snGOQVJUIdSK/zQIXpuHeCf2hvZ4pwmHgY/zHz0OT1DKGRaGRS', 'prueba.jpg', 3),
+  (20, 'wospina', '$2y$10$y2f6q7YFPIDsAs7Swr1U4uI5eZuD1fkg.5Apf7losuBmZUv.fA6GC', 'prueba.jpg', 6),
+  (21, 'mduque', '$2y$10$jX5Cvn2rPQ810CYwvSuNWeQBrs6IjtGjCo0UreD9sgltTXe2DOJCK', 'prueba.jpg', 7),
+  (22, 'azapata', '$2y$10$cROMxAh15WOhfDfe8gAJ1eGvxWeY5OHMsTmMYmRkC7.wvFswWQzUi', 'prueba.jpg', 8);
 
 --
 -- Índices para tablas volcadas
@@ -163,11 +166,18 @@ ALTER TABLE `images_x_album`
   ADD KEY `ck_fk_image_id` (`fk_image_id`);
 
 --
+-- Indices de la tabla `persons`
+--
+ALTER TABLE `persons`
+  ADD PRIMARY KEY (`person_id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `ix_unique_username` (`username`);
+  ADD UNIQUE KEY `ix_unique_username` (`username`),
+  ADD UNIQUE KEY `fk_person_id` (`fk_person_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -178,19 +188,25 @@ ALTER TABLE `users`
 --
 ALTER TABLE `albums`
   MODIFY `album_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 26;
+  AUTO_INCREMENT = 257;
 --
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
   MODIFY `image_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 29;
+  AUTO_INCREMENT = 377;
+--
+-- AUTO_INCREMENT de la tabla `persons`
+--
+ALTER TABLE `persons`
+  MODIFY `person_id` INT(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 9;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 18;
+  AUTO_INCREMENT = 23;
 --
 -- Restricciones para tablas volcadas
 --
@@ -209,6 +225,14 @@ ALTER TABLE `albums`
 ALTER TABLE `images_x_album`
   ADD CONSTRAINT `ck_fk_album_id` FOREIGN KEY (`fk_album_id`) REFERENCES `albums` (`album_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ck_fk_image_id` FOREIGN KEY (`fk_image_id`) REFERENCES `images` (`image_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `ck_fk_person_id` FOREIGN KEY (`fk_person_id`) REFERENCES `persons` (`person_id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 

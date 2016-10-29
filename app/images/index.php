@@ -7,6 +7,7 @@
  */
 
 include_once '../../core/controllers/ImagesController.php';
+include_once '../../core/controllers/UploadController.php';
 
 $imageController = new ImagesController();
 
@@ -34,14 +35,16 @@ try {
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $imagePhoto = $_POST['image_photo'];
+
         $imageTittle = $_POST['image_tittle'];
         $imageDescription = $_POST['image_description'];
         $imageComments = $_POST['image_comments'];
 
         switch ($action) {
             case "add":
-                $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId);
+                if ($imagePhoto = UploadController::uploadImage('image_photo')) {
+                    $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId);
+                }
                 break;
             case "edit":
                 $imageController->editImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId);

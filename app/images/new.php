@@ -50,12 +50,20 @@ $imageView = new ImagesView($this->data);
         <div class="center-align">
             <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
         </div>
-        <form action="" method="post" class="col s12">
+        <form enctype="multipart/form-data" action="" method="post" class="col s12">
             <div class="row">
                 <div class="file-field input-field col s12">
-                    <i class="material-icons prefix">file_upload</i>
-                    <input id="image_photo" name="image_photo" type="url" class="validate" length="767">
-                    <label for="image_photo">Photo</label>
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input id="image_photo" name="image_photo" class="file-path validate" type="file">
+                    </div>
+
+                    <!--<input id="image_photo" name="image_photo" type="url" class="validate" length="767">
+                    <label for="image_photo">Photo</label>-->
+
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">photo_album</i>

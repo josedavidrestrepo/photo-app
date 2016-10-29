@@ -27,7 +27,7 @@ class HomeView
     {
         $user = $this->data->user;
         if (isset($user)) {
-            echo $user->getName();
+            echo $user->getPerson()->getName();
         }
     }
 
@@ -40,7 +40,7 @@ class HomeView
                 '<div class="col s12 m6 l4">
                     <div class="card small hoverable sticky-action">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src=' . $this->getImageUrl($album) . '>
+                            <img class="activator" src="http://localhost/photoapp/photos/' . $this->getImageUrl($album) . '">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">' . $album->getName() . '
@@ -77,9 +77,8 @@ class HomeView
         if ($images = $album->getImages()) {
             $image = $images[0]->getPhoto();
         } else {
-            $image = "../../core/assets/images/home/portfolio/submarine.png";
+            $image = "submarine.png";
         }
-
         return $image;
     }
 
