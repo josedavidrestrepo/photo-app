@@ -10,6 +10,7 @@
 include_once 'c:/xampp/htdocs/photoapp/db/dao/ImagesDao.php';
 include_once 'SessionController.php';
 include_once 'RoutingController.php';
+include_once 'UploadController.php';
 
 class ImagesController
 {
@@ -27,7 +28,7 @@ class ImagesController
         if ($user = SessionController::getUser()) {
             $this->data->user = $user;
 
-            require_once '../../app/images/new.php';
+            require_once '../../app/images/add.php';
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
@@ -51,22 +52,27 @@ class ImagesController
 
     public function createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)
     {
-        $imagesDao = new ImagesDao();
+        if ($imagePhoto = UploadController::uploadImage($imagePhoto)) {
+            $imagesDao = new ImagesDao();
 
-        if ($imagesDao->insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)) {
-            $this->data->error = false;
-            $this->data->message = "Image created successfully";
+            if ($imagesDao->insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)) {
+                $this->data->error = false;
+                $this->data->message = "Image created successfully";
+            } else {
+                $this->data->error = true;
+                $this->data->message = $imagesDao->getResponse();
+            }
         } else {
             $this->data->error = true;
-            $this->data->message = $imagesDao->getResponse();
+            $this->data->message = "Couldn't upload image";
         }
     }
 
-    public function editImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId)
+    public function editImage($imageTittle, $imageDescription, $imageComments, $imageId)
     {
         $imagesDao = new ImagesDao();
 
-        if ($imagesDao->updateImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId)) {
+        if ($imagesDao->updateImage($imageTittle, $imageDescription, $imageComments, $imageId)) {
             $this->data->error = false;
             $this->data->message = "Image edited successfully";
         } else {
@@ -75,5 +81,19 @@ class ImagesController
         }
     }
 
+    public function deleteImage($imageId, $albumId)
+    {
+        if ($user = SessionController::getUser()) {
+            $imagesDao = new ImagesDao();
+
+            if ($imagesDao->deleteImage($imageId, $albumId)) {
+                require_once '../../app/home/index.php';
+            } else {
+                require_once '../../app/errors/page-404.html';
+            }
+        } else {
+            RoutingController::redirect('http://localhost/photoapp');
+        }
+    }
 
 }

@@ -48,12 +48,13 @@ class AlbumsView
 
     public function printImages()
     {
-        $images = (array)$this->data->album->getImages();
+        $album = $this->data->album;
+        $images = (array)$album->getImages();
 
         foreach ($images as $image) {
             echo /** @lang HTML */
                 '<div class="col s12 m6 l4">
-                    <div class="card small hoverable sticky-action">
+                    <div class="card large hoverable sticky-action">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="http://localhost/photoapp/photos/' . $image->getPhoto() . '">
                         </div>
@@ -61,7 +62,10 @@ class AlbumsView
                             <span class="card-title activator grey-text text-darken-4">' . $image->getTittle() . '
                                 <i class="material-icons right">keyboard_arrow_up</i>                            
                             </span>
-                            <div class="center-align">
+                             
+                        </div>
+                        <div class="card-action">
+                           <div class="row center-align">
                                 <a class="btn teal accent-4 tooltipped" href="../images/?action=show&image-id=' . $image->getImageId() . ' " 
                                     data-position="bottom" data-delay="50" data-tooltip="Show image">
                                     <i class="material-icons">search</i>
@@ -70,11 +74,21 @@ class AlbumsView
                                     data-position="bottom" data-delay="50" data-tooltip="Edit image">
                                     <i class="material-icons">edit</i>
                                 </a>
-                                <a class="btn teal accent-4 tooltipped" href="../images/?action=delete&image-id=' . $image->getImageId() . '"
+                                <a class="btn teal accent-4 tooltipped" href="../images/?action=delete&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '"
                                     data-position="bottom" data-delay="50" data-tooltip="Delete image">
                                     <i class="material-icons">delete</i>
                                 </a>
-                            </div>
+                             </div>  
+                            <div class="center-align">
+                                <a class="btn-floating btn waves-effect waves-light red tooltipped" 
+                                    data-position="top" data-delay="50" data-tooltip="Up">
+                                    <i class="material-icons">trending_up</i>
+                                </a>
+                                <a class="btn-floating btn waves-effect waves-light red tooltipped"
+                                    data-position="top" data-delay="50" data-tooltip="Down">
+                                    <i class="material-icons">trending_down</i>
+                                </a>
+                            </div>  
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">' . $image->getTittle() . '

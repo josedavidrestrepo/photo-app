@@ -47,7 +47,7 @@ class HomeView
                                 <i class="material-icons right">keyboard_arrow_up</i>                            
                             </span>
                             <div class="center-align">
-                                <a class="btn teal accent-4 tooltipped" href="../albums/?action=show&album-id=' . $album->getAlbumId() . ' " 
+                                <a class="btn teal accent-4 tooltipped" href="../albums/?action=view&album-id=' . $album->getAlbumId() . ' " 
                                     data-position="bottom" data-delay="50" data-tooltip="Show album">
                                     <i class="material-icons">search</i>
                                 </a>

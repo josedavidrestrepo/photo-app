@@ -28,27 +28,29 @@ class AlbumsController
         if ($user = SessionController::getUser()) {
             $this->data->user = $user;
 
-            require_once '../../app/albums/new.php';
+            require_once '../../app/albums/add.php';
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
     }
 
-    public function createAlbum($albumName, $albumDescription)
+    public function loadEditAlbum($albumId)
     {
-        $albumsDao = new AlbumsDao();
-        $user = SessionController::getUser();
+        if ($user = SessionController::getUser()) {
+            $this->data->user = $user;
 
-        if ($albumsDao->insertAlbum($albumName, $albumDescription, $user)) {
-            $this->data->error = false;
-            $this->data->message = "Album created successfully";
+            $albumsDao = new AlbumsDao();
+            if ($album = $albumsDao->getAlbum($albumId)) {
+                $this->data->album = $album;
+                require_once '../../app/albums/edit.php';
+            }
+
         } else {
-            $this->data->error = true;
-            $this->data->message = $albumsDao->getResponse();
+            RoutingController::redirect('http://localhost/photoapp');
         }
     }
 
-    public function showAlbum($albumId)
+    public function viewAlbum($albumId)
     {
         if ($user = SessionController::getUser()) {
 
@@ -75,12 +77,39 @@ class AlbumsController
         }
     }
 
+    public function createAlbum($albumName, $albumDescription)
+    {
+        $albumsDao = new AlbumsDao();
+        $user = SessionController::getUser();
+
+        if ($albumsDao->insertAlbum($albumName, $albumDescription, $user)) {
+            $this->data->error = false;
+            $this->data->message = "Album created successfully";
+        } else {
+            $this->data->error = true;
+            $this->data->message = $albumsDao->getResponse();
+        }
+    }
+
+    public function editAlbum($albumId, $albumName, $albumDescription)
+    {
+        $albumsDao = new AlbumsDao();
+
+        if ($albumsDao->updateAlbum($albumId, $albumName, $albumDescription)) {
+            $this->data->error = false;
+            $this->data->message = "Album edited successfully";
+        } else {
+            $this->data->error = true;
+            $this->data->message = $albumsDao->getResponse();
+        }
+    }
+
     public function deleteAlbum($albumId)
     {
         if ($user = SessionController::getUser()) {
             $albumsDao = new AlbumsDao();
 
-            if ($album = $albumsDao->deleteAlbums($albumId, $user->getUserId())) {
+            if ($albumsDao->deleteAlbum($albumId, $user->getUserId())) {
                 require_once '../../app/home/index.php';
             } else {
                 require_once '../errors/page-404.html';
@@ -89,4 +118,5 @@ class AlbumsController
             RoutingController::redirect('http://localhost/photoapp');
         }
     }
+
 }

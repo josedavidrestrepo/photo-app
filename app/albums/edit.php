@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: david
- * Date: 22/09/2016
- * Time: 23:47
+ * Date: 30/10/2016
+ * Time: 22:02
  */
 
-include_once '../../core/views/ImagesView.php';
+include_once '../../core/views/AlbumsView.php';
 
-$imageView = new ImagesView($this->data);
+$albumView = new AlbumsView($this->data);
 
 ?>
 
@@ -16,7 +16,7 @@ $imageView = new ImagesView($this->data);
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Image</title>
+    <title>Edit Album</title>
 
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -35,7 +35,7 @@ $imageView = new ImagesView($this->data);
 <div class="navbar-fixed">
     <nav class="blue-grey darken-4">
         <div class="nav-wrapper blue-grey darken-4 container">
-            <a href="../home" class="brand-logo bold"><?php $imageView->printUserName() ?></a>
+            <a href="../home" class="brand-logo bold"><?php $albumView->printUserName() ?></a>
             <a class="btn-large waves-effect waves-light teal accent-4 tooltipped right" data-position="bottom"
                data-delay="50" data-tooltip="Logout" href="../login/index.php?action=logout">
                 <i class="material-icons">exit_to_app</i>
@@ -46,7 +46,7 @@ $imageView = new ImagesView($this->data);
 
 <div class="container">
     <div class="row">
-        <h1 class="col s12 center-align">Edit Image</h1>
+        <h1 class="col s12 center-align">Edit Album!</h1>
         <div class="center-align">
             <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
         </div>
@@ -54,21 +54,15 @@ $imageView = new ImagesView($this->data);
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">photo_album</i>
-                    <input id="image_tittle" name="image_tittle"
-                           value='<?php $imageView->printImageTittle() ?>' type="text" class="validate" length="50">
-                    <label for="image_tittle">Tittle</label>
+                    <input id="album_name" name="album_name" value='<?php $albumView->printAlbumName() ?>' type="text"
+                           class="validate" length="50">
+                    <label for="album_name">Name</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">mode_edit</i>
-                    <textarea id="image_description" name="image_description" class="materialize-textarea"
+                    <textarea id="album_description" name="album_description" class="materialize-textarea"
                               length="200"></textarea>
-                    <label for="image_description">Description</label>
-                </div>
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">comment</i>
-                    <textarea id="image_comments" name="image_comments" class="materialize-textarea"
-                              length="100"></textarea>
-                    <label for="image_comments">Comments</label>
+                    <label for="album_description">Description</label>
                 </div>
                 <div class="input-field col s12 center-align ">
                     <button class="btn-large waves-effect waves-light teal accent-4">Save
@@ -77,7 +71,7 @@ $imageView = new ImagesView($this->data);
                 </div>
                 <div class="input-field col s12">
                     <p class="center-align"
-                       style="color: <?php $imageView->getColor() ?> "><?php $imageView->printMessage() ?></p>
+                       style="color: <?php $albumView->getColor() ?> "><?php $albumView->printMessage() ?></p>
                 </div>
             </div>
         </form>
@@ -113,11 +107,7 @@ $imageView = new ImagesView($this->data);
 
 <script>
     $(document).ready(function () {
-        $('#image_description').val('<?php $imageView->printImageDescription() ?>').trigger('autoresize');
-        //$('#image_description').trigger('autoresize');
-
-        $('#image_comments').val('<?php $imageView->printImageComments() ?>').trigger('autoresize');
-        //$('#image_comments').trigger('autoresize');
+        $('#album_description').val('<?php $albumView->printAlbumDescription() ?>').trigger('autoresize');
     });
 </script>
 

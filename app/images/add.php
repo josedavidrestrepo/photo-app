@@ -55,15 +55,11 @@ $imageView = new ImagesView($this->data);
                 <div class="file-field input-field col s12">
                     <div class="btn">
                         <span>File</span>
-                        <input type="file">
+                        <input type="file" id="image_photo" name="image_photo">
                     </div>
                     <div class="file-path-wrapper">
-                        <input id="image_photo" name="image_photo" class="file-path validate" type="file">
+                        <input class="file-path validate" type="text">
                     </div>
-
-                    <!--<input id="image_photo" name="image_photo" type="url" class="validate" length="767">
-                    <label for="image_photo">Photo</label>-->
-
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">photo_album</i>

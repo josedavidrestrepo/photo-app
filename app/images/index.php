@@ -7,7 +7,6 @@
  */
 
 include_once '../../core/controllers/ImagesController.php';
-include_once '../../core/controllers/UploadController.php';
 
 $imageController = new ImagesController();
 
@@ -16,18 +15,23 @@ try {
         $action = $_GET["action"];
         switch ($action) {
             case "add":
-                if (isset($_GET["album-id"])) {
+                if (isset($_GET["album-id"]))
                     $albumId = $_GET["album-id"];
-                } else {
+                else
                     throw new Exception();
-                }
                 break;
             case "edit":
-                if (isset($_GET["image-id"])) {
+                if (isset($_GET["image-id"]))
                     $imageId = $_GET["image-id"];
-                } else {
+                else
                     throw new Exception();
-                }
+                break;
+            case "delete":
+                if (isset($_GET["image-id"]) && isset($_GET["album-id"])) {
+                    $imageId = $_GET["image-id"];
+                    $albumId = $_GET["album-id"];
+                } else
+                    throw new Exception();
                 break;
             default:
                 throw new Exception();
@@ -42,12 +46,10 @@ try {
 
         switch ($action) {
             case "add":
-                if ($imagePhoto = UploadController::uploadImage('image_photo')) {
-                    $imageController->createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId);
-                }
+                $imageController->createImage('image_photo', $imageTittle, $imageDescription, $imageComments, $albumId);
                 break;
             case "edit":
-                $imageController->editImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId);
+                $imageController->editImage($imageTittle, $imageDescription, $imageComments, $imageId);
                 break;
             default:
                 throw new Exception();
@@ -60,6 +62,9 @@ try {
             break;
         case "edit":
             $imageController->loadEditImage($imageId);
+            break;
+        case "delete":
+            $imageController->deleteImage($imageId, $albumId);
             break;
         default:
             throw new Exception();

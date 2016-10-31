@@ -79,14 +79,34 @@ class ImagesDao
         return $response;
     }
 
-    public function updateImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $imageId)
+    public function updateImage($imageTittle, $imageDescription, $imageComments, $imageId)
     {
         $response = false;
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "UPDATE images SET photo = '$imagePhoto', tittle = '$imageTittle', description = '$imageDescription', comments = '$imageComments' WHERE image_id = '$imageId';";
+            $sql = "UPDATE images SET tittle = '$imageTittle', description = '$imageDescription', comments = '$imageComments' WHERE image_id = '$imageId';";
 
+            if ($this->dbConnection->link->query($sql)) {
+                $response = true;
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $response;
+    }
+
+    public function deleteImage($imageId, $albumId)
+    {
+        $response = false;
+
+        if ($this->dbConnection->dbConnect()) {
+            $sql = "DELETE FROM images_x_album WHERE fk_image_id = '$imageId' AND fk_album_id = '$albumId';";
             if ($this->dbConnection->link->query($sql)) {
                 $response = true;
             } else {
@@ -134,7 +154,7 @@ class ImagesDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE ia.fk_album_id = " . $album->getAlbumId();
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE ia.fk_album_id = " . $album->getAlbumId() . " ORDER BY order_number";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 while ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {

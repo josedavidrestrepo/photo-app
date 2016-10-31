@@ -44,9 +44,30 @@ class AlbumsDao
         return $response;
     }
 
-    public function deleteAlbums($idAlbum, $userId)
+    public function updateAlbum($albumId, $albumName, $albumDescription)
     {
+        $response = false;
 
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "UPDATE albums SET name = '$albumName', description = '$albumDescription'WHERE album_id = '$albumId';";
+
+            if ($this->dbConnection->link->query($sql)) {
+                $response = true;
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $response;
+    }
+
+    public function deleteAlbum($idAlbum, $userId)
+    {
         $response = false;
 
         if ($this->dbConnection->dbConnect()) {
@@ -64,6 +85,7 @@ class AlbumsDao
 
         return $response;
     }
+
     public function getAlbums($user)
     {
         $albums = array();
