@@ -59,13 +59,43 @@ class UsersDao
 
     }
 
-    function getUser($username)
+    function getUserByUserName($username)
     {
         $user = NULL;
 
         if ($this->dbConnection->dbConnect()) {
 
             $sql = "SELECT * FROM users INNER JOIN persons ON person_id = fk_person_id WHERE username = '$username' ";
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                if ($result->num_rows == 1) {
+                    if ($rowUser = $result->fetch_array(MYSQLI_ASSOC)) {
+                        $user = UsersOrm::mapUser($rowUser);
+                    }
+                } else {
+                    $this->response = "Your username or password is invalid";
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $user;
+    }
+
+    function getUserByUserId($userId)
+    {
+        $user = NULL;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "SELECT * FROM users INNER JOIN persons ON person_id = fk_person_id WHERE user_id = '$userId' ";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($result->num_rows == 1) {

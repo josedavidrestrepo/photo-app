@@ -36,7 +36,7 @@ class LoginController
     {
         $usersDao = new UsersDao();
 
-        if ($user = $usersDao->getUser($username))
+        if ($user = $usersDao->getUserByUserName($username))
         {
             if (password_verify($password, $user->getPassword())) {
                 SessionController::createSession($user);

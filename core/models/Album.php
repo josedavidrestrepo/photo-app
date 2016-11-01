@@ -11,8 +11,8 @@ class Album
     private $album_id;
     private $name;
     private $description;
-    private $fkUserId;
 
+    private $user;
     private $images;
 
     /**
@@ -66,17 +66,17 @@ class Album
     /**
      * @return mixed
      */
-    public function getFkUserId()
+    public function getUser()
     {
-        return $this->fkUserId;
+        return $this->user;
     }
 
     /**
-     * @param mixed $fkUserId
+     * @param mixed $user
      */
-    public function setFkUserId($fkUserId)
+    public function setUser($user)
     {
-        $this->fkUserId = $fkUserId;
+        $this->user = $user;
     }
 
     /**

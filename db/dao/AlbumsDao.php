@@ -71,9 +71,12 @@ class AlbumsDao
         $response = false;
 
         if ($this->dbConnection->dbConnect()) {
-            $sql = "DELETE FROM albums WHERE album_id =" . $idAlbum . " AND fk_user_id = " . $userId . ";";
+            $sql = "DELETE FROM albums WHERE album_id ='$idAlbum' AND fk_user_id = '$userId'";
             if ($this->dbConnection->link->query($sql)) {
-                $response = true;
+                if ($this->dbConnection->link->affected_rows > 0)
+                    $response = true;
+                else
+                    $response = false;
             } else {
                 $this->response = $this->dbConnection->link->error;
             }

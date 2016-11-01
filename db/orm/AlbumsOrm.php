@@ -8,6 +8,7 @@
  */
 
 include_once 'c:/xampp/htdocs/photoapp/core/models/Album.php';
+include_once 'c:/xampp/htdocs/photoapp/core/models/User.php';
 
 class AlbumsOrm
 {
@@ -19,7 +20,11 @@ class AlbumsOrm
         $album->setAlbumId($rowAlbum["album_id"]);
         $album->setName($rowAlbum["name"]);
         $album->setDescription($rowAlbum["description"]);
-        $album->setFkUserId($rowAlbum["fk_user_id"]);
+
+        $user = new User();
+        $user->setUserId($rowAlbum["fk_user_id"]);
+
+        $album->setUser($user);
 
         return $album;
     }
