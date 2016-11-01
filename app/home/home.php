@@ -82,6 +82,13 @@ $homeView = new HomeView($this->data);
                 </a>
             </div>
         </div>
+        <div class="row center-align">
+            <h3 class="bold">OTHERS</h3>
+            <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
+        </div>
+        <div class="row">
+            <?php $homeView->printOtherAlbums() ?>
+        </div>
     </div>
 </section>
 

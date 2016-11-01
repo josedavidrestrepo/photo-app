@@ -85,6 +85,12 @@ $loginView = new LoginView($this->data);
                     </label>
                     <input name="password" type="password" required autocomplete="off"/>
                 </div>
+                <select name="role">
+                    <option value="-1">Choose Role</option>
+                    <option value="1">Administrator</option>
+                    <option value="2">Premium</option>
+                    <option value="3">Regular</option>
+                </select>
                 <input name="action" type="hidden" value="register"/>
                 <button type="submit" class="button button-block">Get Started</button>
                 <p style="color: <?php $loginView->getColor() ?> "><?php $loginView->printMessage() ?></p>

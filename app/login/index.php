@@ -11,12 +11,13 @@ try {
         $action = $_POST['action'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $role = $_POST['role'];
 
         if ($action == "register") {
             $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
             $avatar = "prueba.jpg";
 
-            $loginController->register($name, $username, $password, $avatar);
+            $loginController->register($name, $username, $password, $avatar, $role);
         } else if ($action == "login") {
             $loginController->login($username, $password);
         }

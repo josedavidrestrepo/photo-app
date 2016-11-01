@@ -24,8 +24,7 @@ class HomeController
 
     public function load()
     {
-        if ($user = SessionController::getUser())
-        {
+        if ($user = SessionController::getUser()) {
             $albumsDao = new AlbumsDao();
             $imagesDao = new ImagesDao();
 
@@ -42,10 +41,20 @@ class HomeController
 
             $this->data->user = $user;
 
+            $this->data->otherAlbums = array();
+            if ($otherAlbums = $albumsDao->getOtherAlbums($user)) {
+
+                foreach ($otherAlbums as $album) {
+                    if ($images = $imagesDao->getFirstImage($album)) {
+                        $album->setImages($images);
+                    }
+                }
+
+                $this->data->otherAlbums = $otherAlbums;
+            }
+
             require_once '../../app/home/home.php';
-        }
-        else
-        {
+        } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
     }

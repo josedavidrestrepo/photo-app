@@ -53,21 +53,25 @@ class LoginController
         }
     }
 
-    public function register($name, $username, $password, $avatar)
+    public function register($name, $username, $password, $avatar, $role)
     {
-        $usersDao = new UsersDao();
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        if ($role >= 1 && $role <= 3) {
+            $usersDao = new UsersDao();
+            $password = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($usersDao->insertUser($name, $username, $password, $avatar))
-        {
-            $this->data->error = false;
-            $this->data->message = "User created successfully. Please login";
-        }
-        else
-        {
+            if ($usersDao->insertUser($name, $username, $password, $avatar, $role)) {
+                $this->data->error = false;
+                $this->data->message = "User created successfully. Please login";
+            } else {
+                $this->data->error = true;
+                $this->data->message = $usersDao->getResponse();
+            }
+        } else {
             $this->data->error = true;
-            $this->data->message = $usersDao->getResponse();
+            $this->data->message = "Must choose the role";
         }
+
+
     }
 
     public function logout()

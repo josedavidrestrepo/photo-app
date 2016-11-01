@@ -114,10 +114,8 @@ $imageView = new ImagesView($this->data);
 <script>
     $(document).ready(function () {
         $('#image_description').val('<?php $imageView->printImageDescription() ?>').trigger('autoresize');
-        //$('#image_description').trigger('autoresize');
 
         $('#image_comments').val('<?php $imageView->printImageComments() ?>').trigger('autoresize');
-        //$('#image_comments').trigger('autoresize');
     });
 </script>
 

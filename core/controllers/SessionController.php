@@ -23,6 +23,7 @@ class SessionController
         $_SESSION["username"] = $user->getUsername();
         $_SESSION["name"] = $user->getPerson()->getName();
         $_SESSION["avatar"] = $user->getAvatar();
+        $_SESSION["role"] = $user->getRole();
     }
 
     public static function start()
@@ -67,6 +68,7 @@ class SessionController
             $user->setUserId($_SESSION["userId"]);
             $user->setUsername($_SESSION["username"]);
             $user->setAvatar($_SESSION["avatar"]);
+            $user->setRole($_SESSION["role"]);
 
             $user->setPerson($person);
 

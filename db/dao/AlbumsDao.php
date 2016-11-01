@@ -139,6 +139,34 @@ class AlbumsDao
         return $album;
     }
 
+    public function getOtherAlbums($user)
+    {
+        $albums = array();
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = $user->getRole() != 1 ? "SELECT * FROM albums INNER JOIN users ON user_id = albums.fk_user_id WHERE role = " . $user->getRole() . " AND user_id != " . $user->getUserId()
+                : "SELECT * FROM albums INNER JOIN users ON user_id = albums.fk_user_id WHERE user_id != " . $user->getUserId();
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                while ($rowAlbum = $result->fetch_array(MYSQLI_ASSOC)) {
+                    $album = AlbumsOrm::mapAlbum($rowAlbum);
+                    array_push($albums, $album);
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $albums;
+    }
+
     public function getResponse()
     {
         return $this->response;

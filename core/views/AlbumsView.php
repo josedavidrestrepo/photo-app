@@ -54,7 +54,7 @@ class AlbumsView
         foreach ($images as $image) {
             echo /** @lang HTML */
                 '<div class="col s12 m6 l4">
-                    <div class="card large hoverable sticky-action">
+                    <div class="card small hoverable sticky-action">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="http://localhost/photoapp/photos/' . $image->getPhoto() . '">
                         </div>

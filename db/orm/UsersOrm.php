@@ -25,6 +25,7 @@ class UsersOrm
         $user->setUsername($rowUser["username"]);
         $user->setPassword($rowUser["password"]);
         $user->setAvatar($rowUser["avatar"]);
+        $user->setRole($rowUser["role"]);
 
         $user->setPerson($person);
 

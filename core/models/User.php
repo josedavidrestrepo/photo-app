@@ -12,6 +12,7 @@ class User
     private $username;
     private $password;
     private $avatar;
+    private $role;
 
     private $person;
     private $albums;
@@ -55,6 +56,16 @@ class User
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
     /**

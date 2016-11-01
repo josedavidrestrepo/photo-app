@@ -20,7 +20,7 @@ class UsersDao
         $this->dbConnection = new DbConnection();
     }
 
-    function insertUser($name, $username, $password, $avatar)
+    function insertUser($name, $username, $password, $avatar, $role)
     {
         $response = false;
 
@@ -30,7 +30,7 @@ class UsersDao
 
             if ($this->dbConnection->link->query($sql1)) {
                 $last_id = $this->dbConnection->link->insert_id;
-                $sql2 = "INSERT INTO users(username, password, avatar, fk_person_id) VALUES('$username', '$password', '$avatar','$last_id');";
+                $sql2 = "INSERT INTO users(username, password, avatar, fk_person_id, role) VALUES('$username', '$password', '$avatar','$last_id','$role');";
 
                 if ($this->dbConnection->link->query($sql2)) {
                     $response = true;
