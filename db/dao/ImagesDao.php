@@ -180,6 +180,32 @@ class ImagesDao
         return $this->response;
     }
 
+    public function getImagesUser($user, $albumId)
+    {
+        $images = array();
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id INNER JOIN albums a ON a.album_id = ia.fk_album_id WHERE a.fk_user_id = " . $user->getUserId() . " AND a.album_id != " . $albumId . " ORDER BY order_number";
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                while ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
+                    $image = ImagesOrm::mapImage($rowImage);
+                    array_push($images, $image);
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $images;
+    }
 
 
 }

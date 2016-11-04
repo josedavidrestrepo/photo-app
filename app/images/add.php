@@ -52,6 +52,7 @@ $imageView = new ImagesView($this->data);
         </div>
         <form enctype="multipart/form-data" action="" method="post" class="col s12">
             <div class="row">
+
                 <div class="file-field input-field col s12">
                     <div class="btn">
                         <span>File</span>
@@ -61,6 +62,7 @@ $imageView = new ImagesView($this->data);
                         <input class="file-path validate" type="text">
                     </div>
                 </div>
+
                 <div class="input-field col s12">
                     <i class="material-icons prefix">photo_album</i>
                     <input id="image_tittle" name="image_tittle" type="text" class="validate" length="50">
@@ -87,7 +89,19 @@ $imageView = new ImagesView($this->data);
                     <p class="center-align"
                        style="color: <?php $imageView->getColor() ?> "><?php $imageView->printMessage() ?></p>
                 </div>
+
+
             </div>
+        </form>
+        <form enctype="multipart/form-data" action="" method="post" class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <?php $imageView->printImageOptions() ?>
+                    </select>
+                    <label>Choose a image all ready upload</label>
+                </div>
         </form>
     </div>
 </div>
@@ -121,6 +135,7 @@ $imageView = new ImagesView($this->data);
 
 <script>
     $(document).ready(function () {
+        $('select').material_select();
     });
 </script>
 

@@ -58,7 +58,7 @@ try {
 
     switch ($action) {
         case "add":
-            $imageController->loadNewImage();
+            $imageController->loadNewImage($albumId);
             break;
         case "edit":
             $imageController->loadEditImage($imageId);

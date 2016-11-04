@@ -23,11 +23,13 @@ class ImagesController
         $this->data->message = "";
     }
 
-    public function loadNewImage()
+    public function loadNewImage($albumId)
     {
         if ($user = SessionController::getUser()) {
+            $imagesDao = new ImagesDao();
+            if ($images = $imagesDao->getImagesUser($user, $albumId))
+                $this->data->images = $images;
             $this->data->user = $user;
-
             require_once '../../app/images/add.php';
         } else {
             RoutingController::redirect('http://localhost/photoapp');
