@@ -49,7 +49,7 @@ class ImagesDao
         return $image;
     }
 
-    public function insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)
+    public function insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $orderNumber, $albumId)
     {
         $response = false;
 
@@ -59,7 +59,7 @@ class ImagesDao
 
             if ($this->dbConnection->link->query($sql1)) {
                 $last_id = $this->dbConnection->link->insert_id;
-                $sql2 = "INSERT INTO images_x_album(fk_image_id, fk_album_id) VALUES('$last_id', '$albumId');";
+                $sql2 = "INSERT INTO images_x_album(fk_image_id, fk_album_id,order_number) VALUES('$last_id', '$albumId','$orderNumber');";
 
                 if ($this->dbConnection->link->query($sql2)) {
                     $response = true;
@@ -101,6 +101,28 @@ class ImagesDao
         return $response;
     }
 
+    public function updateOrderImage($albumId, $imageId, $order_number)
+    {
+        $response = false;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "UPDATE images_x_album SET order_number = '$order_number' WHERE $imageId = '$imageId' AND $albumId = '$albumId'";
+
+            if ($this->dbConnection->link->query($sql)) {
+                $response = true;
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $response;
+    }
+
     public function deleteImage($imageId, $albumId)
     {
         $response = false;
@@ -121,13 +143,35 @@ class ImagesDao
         return $response;
     }
 
+    public function linkImage($albumId, $imageLinkId, $orderNumber)
+    {
+        $response = false;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "INSERT INTO images_x_album(fk_album_id, fk_image_id, order_number) VALUES ('$albumId','$imageLinkId','$orderNumber')";
+
+            if ($this->dbConnection->link->query($sql)) {
+                $response = true;
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $response;
+    }
+
     public function getFirstImage($album)
     {
         $images = array();
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE ia.fk_album_id = " . $album->getAlbumId() . " LIMIT 1";
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE ia.fk_album_id = " . $album->getAlbumId() . " ORDER BY order_number LIMIT 1";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 while ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -148,7 +192,7 @@ class ImagesDao
         return $images;
     }
 
-    public function getImages($album)
+    public function getImagesByAlbum($album)
     {
         $images = array();
 
@@ -175,18 +219,13 @@ class ImagesDao
         return $images;
     }
 
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function getImagesUser($user, $albumId)
+    public function getImagesByUser($user, $albumId)
     {
         $images = array();
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id INNER JOIN albums a ON a.album_id = ia.fk_album_id WHERE a.fk_user_id = " . $user->getUserId() . " AND a.album_id != " . $albumId . " ORDER BY order_number";
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id INNER JOIN albums a ON a.album_id = ia.fk_album_id WHERE a.fk_user_id = " . $user->getUserId() . " AND a.album_id != '$albumId' AND NOT EXISTS (SELECT 1 FROM images_x_album ia2 WHERE ia2.fk_image_id = i.image_id AND ia2.fk_album_id = '$albumId' ) ORDER BY order_number";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 while ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -207,5 +246,99 @@ class ImagesDao
         return $images;
     }
 
+    public function getLastOrder($albumId)
+    {
+        $orderNumber = 1;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "SELECT * FROM images_x_album WHERE fk_album_id = '$albumId' ORDER BY order_number DESC LIMIT 1";
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                if ($result->num_rows != 0) {
+                    $rowOrder = $result->fetch_array(MYSQLI_ASSOC);
+                    $orderNumber = $rowOrder["order_number"] + 1;
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $orderNumber;
+    }
+
+    public function getPreviousImage($albumId, $imageId)
+    {
+        $image = NULL;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "SELECT *
+                    FROM images_x_album ia
+                    INNER JOIN images i ON i.image_id = ia.fk_image_id
+                    WHERE fk_album_id = '$albumId' AND order_number < (SELECT order_number FROM images_x_album WHERE fk_image_id = '$imageId' AND fk_album_id = '$albumId')
+                    ORDER BY order_number DESC
+                    LIMIT 1";
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                if ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
+                    $image = ImagesOrm::mapImage($rowImage);
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $image;
+    }
+
+    public function getNextImage($albumId, $imageId)
+    {
+        $image = NULL;
+
+        if ($this->dbConnection->dbConnect()) {
+
+            $sql = "SELECT *
+                    FROM images_x_album ia
+                    INNER JOIN images i ON i.image_id = ia.fk_image_id
+                    WHERE fk_album_id = '$albumId' AND order_number > (SELECT order_number FROM images_x_album WHERE fk_image_id = '$imageId' AND fk_album_id = '$albumId')
+                    ORDER BY order_number
+                    LIMIT 1";
+
+            if ($result = $this->dbConnection->link->query($sql)) {
+                if ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
+                    $image = ImagesOrm::mapImage($rowImage);
+                }
+
+                $result->free_result();
+            } else {
+                $this->response = $this->dbConnection->link->error;
+            }
+
+            $this->dbConnection->link->close();
+        } else {
+            $this->response = $this->dbConnection->error;
+        }
+
+        return $image;
+    }
+
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
 
 }

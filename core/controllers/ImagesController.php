@@ -27,7 +27,7 @@ class ImagesController
     {
         if ($user = SessionController::getUser()) {
             $imagesDao = new ImagesDao();
-            if ($images = $imagesDao->getImagesUser($user, $albumId))
+            if ($images = $imagesDao->getImagesByUser($user, $albumId))
                 $this->data->images = $images;
             $this->data->user = $user;
             require_once '../../app/images/add.php';
@@ -57,12 +57,17 @@ class ImagesController
         if ($imagePhoto = UploadController::uploadImage($imagePhoto)) {
             $imagesDao = new ImagesDao();
 
-            if ($imagesDao->insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)) {
-                $this->data->error = false;
-                $this->data->message = "Image created successfully";
+            if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
+                if ($imagesDao->insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $orderNumber, $albumId)) {
+                    $this->data->error = false;
+                    $this->data->message = "Image created successfully";
+                } else {
+                    $this->data->error = true;
+                    $this->data->message = $imagesDao->getResponse();
+                }
             } else {
                 $this->data->error = true;
-                $this->data->message = $imagesDao->getResponse();
+                $this->data->message = "Couldn't find order number";
             }
         } else {
             $this->data->error = true;
@@ -96,6 +101,25 @@ class ImagesController
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
+    }
+
+    public function linkImage($albumId, $imageLinkId)
+    {
+        $imagesDao = new ImagesDao();
+
+        if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
+            if ($imagesDao->linkImage($albumId, $imageLinkId, $orderNumber)) {
+                $this->data->error = false;
+                $this->data->message = "Image linked successfully";
+            } else {
+                $this->data->error = true;
+                $this->data->message = $imagesDao->getResponse();
+            }
+        } else {
+            $this->data->error = true;
+            $this->data->message = "Couldn't find order number";
+        }
+
     }
 
 }

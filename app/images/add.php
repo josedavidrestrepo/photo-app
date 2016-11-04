@@ -46,7 +46,7 @@ $imageView = new ImagesView($this->data);
 
 <div class="container">
     <div class="row">
-        <h1 class="col s12 center-align">Add a new image!</h1>
+        <h1 class="col s12 center-align">Add a new image to Album!</h1>
         <div class="center-align">
             <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
         </div>
@@ -89,19 +89,27 @@ $imageView = new ImagesView($this->data);
                     <p class="center-align"
                        style="color: <?php $imageView->getColor() ?> "><?php $imageView->printMessage() ?></p>
                 </div>
-
+                <input type="hidden" name="action_type" value="add">
 
             </div>
         </form>
+        <h1 class="col s12 center-align">Or choose one already uploaded!</h1>
+        <div class="center-align">
+            <div class="separator bold">- - - - - - - <i class="material-icons">star</i> - - - - - - -</div>
+        </div>
         <form enctype="multipart/form-data" action="" method="post" class="col s12">
             <div class="row">
-                <div class="input-field col s12">
-                    <select>
+                <div class="input-field col s12 center-align">
+                    <select name="image_id">
                         <option value="" disabled selected>Choose your option</option>
                         <?php $imageView->printImageOptions() ?>
                     </select>
-                    <label>Choose a image all ready upload</label>
+                    <button class="btn-large waves-effect waves-light teal accent-4">Link
+                        <i class="material-icons right">link</i>
+                    </button>
+                    <input type="hidden" name="action_type" value="link">
                 </div>
+
         </form>
     </div>
 </div>

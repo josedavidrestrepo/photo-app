@@ -40,20 +40,38 @@ try {
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $imageTittle = $_POST['image_tittle'];
-        $imageDescription = $_POST['image_description'];
-        $imageComments = $_POST['image_comments'];
+        $actionType = $_POST['action_type'];
 
-        switch ($action) {
-            case "add":
-                $imageController->createImage('image_photo', $imageTittle, $imageDescription, $imageComments, $albumId);
-                break;
-            case "edit":
-                $imageController->editImage($imageTittle, $imageDescription, $imageComments, $imageId);
-                break;
-            default:
-                throw new Exception();
+        if (isset($actionType)) {
+            switch ($actionType) {
+                case "add":
+                    $imageTittle = $_POST['image_tittle'];
+                    $imageDescription = $_POST['image_description'];
+                    $imageComments = $_POST['image_comments'];
+
+                    $imageController->createImage('image_photo', $imageTittle, $imageDescription, $imageComments, $albumId);
+                    break;
+                case "edit":
+                    $imageTittle = $_POST['image_tittle'];
+                    $imageDescription = $_POST['image_description'];
+                    $imageComments = $_POST['image_comments'];
+
+                    $imageController->editImage($imageTittle, $imageDescription, $imageComments, $imageId);
+                    break;
+                case "link":
+                    if (isset($_POST['image_id'])) {
+                        $imageLinkId = $_POST['image_id'];
+
+                        $imageController->linkImage($albumId, $imageLinkId);
+                    }
+                    break;
+                default:
+                    throw new Exception();
+            }
+        } else {
+            throw new Exception();
         }
+
     }
 
     switch ($action) {

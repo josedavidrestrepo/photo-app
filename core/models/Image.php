@@ -14,6 +14,8 @@ class Image
     private $tittle;
     private $comments;
 
+    private $orderNumber;
+
     /**
      * @return mixed
      */
@@ -92,6 +94,22 @@ class Image
     public function setComments($comments)
     {
         $this->comments = $comments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * @param mixed $orderNumber
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
     }
 
 }

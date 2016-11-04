@@ -81,7 +81,7 @@ class AlbumsView
                              </div>  
                             <div class="center-align">
                                 <a class="btn-floating btn waves-effect waves-light red tooltipped" 
-                                    data-position="top" data-delay="50" data-tooltip="Up">
+                                    data-position="top" data-delay="50" data-tooltip="Up" href="index.php?action=up&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '">
                                     <i class="material-icons">trending_up</i>
                                 </a>
                                 <a class="btn-floating btn waves-effect waves-light red tooltipped"
