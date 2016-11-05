@@ -46,7 +46,6 @@ class ImagesController
                 $this->data->image = $image;
                 require_once '../../app/images/edit.php';
             }
-
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
@@ -54,29 +53,46 @@ class ImagesController
 
     public function createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)
     {
-        if ($imagePhoto = UploadController::uploadImage($imagePhoto)) {
-            $imagesDao = new ImagesDao();
+        if ($user = SessionController::getUser()) {
+            if ($imagePhoto = UploadController::uploadImage($imagePhoto)) {
+                $imagesDao = new ImagesDao();
 
-            if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
-                if ($imagesDao->insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $orderNumber, $albumId)) {
-                    $this->data->error = false;
-                    $this->data->message = "Image created successfully";
+                if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
+                    if ($imagesDao->insertImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $orderNumber, $albumId)) {
+                        $this->data->error = false;
+                        $this->data->message = "Image created successfully";
+                    } else {
+                        $this->data->error = true;
+                        $this->data->message = $imagesDao->getResponse();
+                    }
                 } else {
                     $this->data->error = true;
-                    $this->data->message = $imagesDao->getResponse();
+                    $this->data->message = "Couldn't get order number";
                 }
             } else {
                 $this->data->error = true;
-                $this->data->message = "Couldn't get order number";
+                $this->data->message = "Couldn't upload image";
             }
         } else {
-            $this->data->error = true;
-            $this->data->message = "Couldn't upload image";
+            RoutingController::redirect('http://localhost/photoapp');
         }
     }
 
     public function editImage($imageTittle, $imageDescription, $imageComments, $imageId)
     {
+        if ($user = SessionController::getUser()) {
+            $imagesDao = new ImagesDao();
+
+            if ($imagesDao->updateImage($imageTittle, $imageDescription, $imageComments, $imageId)) {
+                $this->data->error = false;
+                $this->data->message = "Image edited successfully";
+            } else {
+                $this->data->error = true;
+                $this->data->message = $imagesDao->getResponse();
+            }
+        } else {
+            RoutingController::redirect('http://localhost/photoapp');
+        }
         $imagesDao = new ImagesDao();
 
         if ($imagesDao->updateImage($imageTittle, $imageDescription, $imageComments, $imageId)) {
@@ -105,19 +121,23 @@ class ImagesController
 
     public function linkImage($albumId, $imageLinkId)
     {
-        $imagesDao = new ImagesDao();
+        if ($user = SessionController::getUser()) {
+            $imagesDao = new ImagesDao();
 
-        if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
-            if ($imagesDao->linkImage($albumId, $imageLinkId, $orderNumber)) {
-                $this->data->error = false;
-                $this->data->message = "Image linked successfully";
+            if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
+                if ($imagesDao->linkImage($albumId, $imageLinkId, $orderNumber)) {
+                    $this->data->error = false;
+                    $this->data->message = "Image linked successfully";
+                } else {
+                    $this->data->error = true;
+                    $this->data->message = $imagesDao->getResponse();
+                }
             } else {
                 $this->data->error = true;
-                $this->data->message = $imagesDao->getResponse();
+                $this->data->message = "Couldn't find order number";
             }
         } else {
-            $this->data->error = true;
-            $this->data->message = "Couldn't find order number";
+            RoutingController::redirect('http://localhost/photoapp');
         }
     }
 
