@@ -41,7 +41,7 @@ class AlbumsController
             $this->data->user = $user;
 
             $albumsDao = new AlbumsDao();
-            if ($album = $albumsDao->getAlbum($albumId)) {
+            if ($album = $albumsDao->getAlbum($albumId, $user->getUserId())) {
                 $this->data->album = $album;
                 require_once '../../app/albums/edit.php';
             }
@@ -59,7 +59,7 @@ class AlbumsController
             $imagesDao = new ImagesDao();
             $usersDao = new UsersDao();
 
-            if ($album = $albumsDao->getAlbum($albumId)) {
+            if ($album = $albumsDao->getAlbum($albumId, $user->getUserId())) {
                 if ($images = $imagesDao->getImagesByAlbum($album))
                     $album->setImages($images);
                 if ($userAlbum = $usersDao->getUserByUserId($album->getUser()->getUserId()))
