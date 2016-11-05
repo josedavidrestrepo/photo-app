@@ -44,13 +44,13 @@ class AlbumsDao
         return $response;
     }
 
-    public function updateAlbum($albumId, $albumName, $albumDescription)
+    public function updateAlbum($albumId, $albumName, $albumDescription, $userId)
     {
         $response = false;
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "UPDATE albums SET name = '$albumName', description = '$albumDescription'WHERE album_id = '$albumId';";
+            $sql = "UPDATE albums SET name = '$albumName', description = '$albumDescription'WHERE album_id = '$albumId' AND fk_user_id='$userId';";
 
             if ($this->dbConnection->link->query($sql)) {
                 $response = true;
