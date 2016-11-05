@@ -106,7 +106,7 @@ class AlbumsController
         if ($user = SessionController::getUser()) {
             $albumsDao = new AlbumsDao();
 
-            if ($albumsDao->updateAlbum($albumId, $albumName, $albumDescription)) {
+            if ($albumsDao->updateAlbum($albumId, $albumName, $albumDescription, $user->getUserId())) {
                 $this->data->error = false;
                 $this->data->message = "Album edited successfully";
             } else {
