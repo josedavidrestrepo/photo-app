@@ -27,7 +27,7 @@ class LoginController
         if ($user = SessionController::getUser()) {
             RoutingController::redirect('http://localhost/photoapp/app/home');
         } else {
-            RoutingController::redirect('http://localhost/photoapp/app/login/');
+            require_once '../../app/login/login.php';
         }
 
     }
