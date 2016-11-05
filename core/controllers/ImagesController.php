@@ -36,13 +36,13 @@ class ImagesController
         }
     }
 
-    public function loadEditImage($imageId)
+    public function loadEditImage($imageId, $albumId)
     {
         if ($user = SessionController::getUser()) {
             $this->data->user = $user;
 
             $imagesDao = new ImagesDao();
-            if ($image = $imagesDao->getImage($imageId)) {
+            if ($image = $imagesDao->getImage($imageId, $albumId)) {
                 $this->data->image = $image;
                 require_once '../../app/images/edit.php';
             }
@@ -67,7 +67,7 @@ class ImagesController
                 }
             } else {
                 $this->data->error = true;
-                $this->data->message = "Couldn't find order number";
+                $this->data->message = "Couldn't get order number";
             }
         } else {
             $this->data->error = true;
@@ -94,9 +94,9 @@ class ImagesController
             $imagesDao = new ImagesDao();
 
             if ($imagesDao->deleteImage($imageId, $albumId)) {
-                require_once '../../app/home/index.php';
+                RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
             } else {
-                require_once '../../app/errors/page-404.html';
+                throw new Exception();
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');
@@ -119,7 +119,6 @@ class ImagesController
             $this->data->error = true;
             $this->data->message = "Couldn't find order number";
         }
-
     }
 
     public function upImage($albumId, $imageId)
@@ -127,20 +126,20 @@ class ImagesController
         if ($user = SessionController::getUser()) {
             $imagesDao = new ImagesDao();
             if ($previousImage = $imagesDao->getPreviousImage($albumId, $imageId)) {
-                if ($image = $imagesDao->getImage($imageId)) {
+                if ($image = $imagesDao->getImage($imageId, $albumId)) {
                     if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
                         $imagesDao->updateOrderImage($albumId, $previousImage->getImageId(), $image->getOrderNumber()) &&
                         $imagesDao->updateOrderImage($albumId, $image->getImageId(), $previousImage->getOrderNumber())
                     ) {
-                        require_once '../../app/home/index.php';
+                        RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
                     } else {
-                        require_once '../../app/errors/page-404.html';
+                        throw new Exception();
                     }
                 } else {
-                    require_once '../../app/errors/page-404.html';
+                    throw new Exception();
                 }
             } else {
-                require_once '../../app/home/index.php';
+                RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');
@@ -154,20 +153,20 @@ class ImagesController
             $imagesDao = new ImagesDao();
 
             if ($nextImage = $imagesDao->getNextImage($albumId, $imageId)) {
-                if ($image = $imagesDao->getImage($imageId)) {
+                if ($image = $imagesDao->getImage($imageId, $albumId)) {
                     if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
                         $imagesDao->updateOrderImage($albumId, $nextImage->getImageId(), $image->getOrderNumber()) &&
                         $imagesDao->updateOrderImage($albumId, $image->getImageId(), $nextImage->getOrderNumber())
                     ) {
-                        require_once '../../app/home/index.php';
+                        RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
                     } else {
-                        require_once '../../app/errors/page-404.html';
+                        throw new Exception();
                     }
                 } else {
-                    require_once '../../app/errors/page-404.html';
+                    throw new Exception();
                 }
             } else {
-                require_once '../../app/home/index.php';
+                RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');

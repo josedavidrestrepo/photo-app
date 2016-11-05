@@ -70,7 +70,7 @@ class AlbumsView
                                     data-position="bottom" data-delay="50" data-tooltip="Show image">
                                     <i class="material-icons">search</i>
                                 </a>
-                                <a class="btn teal accent-4 tooltipped" href="../images/?action=edit&image-id=' . $image->getImageId() . '"
+                                <a class="btn teal accent-4 tooltipped" href="../images/?action=edit&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '"
                                     data-position="bottom" data-delay="50" data-tooltip="Edit image">
                                     <i class="material-icons">edit</i>
                                 </a>
@@ -80,13 +80,13 @@ class AlbumsView
                                 </a>
                              </div>  
                             <div class="center-align">
-                                <a class="btn-floating btn waves-effect waves-light red tooltipped" 
+                                <a class="btn-floating btn waves-effect waves-light blue-grey darken-4 tooltipped" 
                                     data-position="top" data-delay="50" data-tooltip="Up" href="../images/index.php?action=up&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '">
-                                    <i class="material-icons">trending_up</i>
+                                    <i class="material-icons">arrow_upward</i>
                                 </a>
-                                <a class="btn-floating btn waves-effect waves-light red tooltipped"
+                                <a class="btn-floating btn waves-effect waves-light blue-grey darken-4 tooltipped"
                                     data-position="top" data-delay="50" data-tooltip="Down" href="../images/index.php?action=down&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '">
-                                    <i class="material-icons">trending_down</i>
+                                    <i class="material-icons">arrow_downward</i>
                                 </a>
                             </div>  
                         </div>

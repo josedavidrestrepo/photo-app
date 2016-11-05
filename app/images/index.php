@@ -21,18 +21,7 @@ try {
                     throw new Exception();
                 break;
             case "edit":
-                if (isset($_GET["image-id"]))
-                    $imageId = $_GET["image-id"];
-                else
-                    throw new Exception();
-                break;
             case "delete":
-                if (isset($_GET["image-id"]) && isset($_GET["album-id"])) {
-                    $imageId = $_GET["image-id"];
-                    $albumId = $_GET["album-id"];
-                } else
-                    throw new Exception();
-                break;
             case "up":
             case "down":
                 if (isset($_GET["album-id"]) && isset($_GET["image-id"])) {
@@ -87,7 +76,7 @@ try {
             $imageController->loadNewImage($albumId);
             break;
         case "edit":
-            $imageController->loadEditImage($imageId);
+            $imageController->loadEditImage($imageId, $albumId);
             break;
         case "delete":
             $imageController->deleteImage($imageId, $albumId);

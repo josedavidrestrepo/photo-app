@@ -23,13 +23,13 @@ class ImagesDao
         $this->dbConnection = new DbConnection();
     }
 
-    public function getImage($imageId)
+    public function getImage($imageId, $albumId)
     {
         $image = NULL;
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE image_id = '$imageId'";
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE image_id = '$imageId' AND fk_album_id = '$albumId'";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
