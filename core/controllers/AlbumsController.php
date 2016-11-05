@@ -42,7 +42,7 @@ class AlbumsController
 
             $albumsDao = new AlbumsDao();
             if ($album = $albumsDao->getAlbum($albumId)) {
-                if ($album->getAlbumId() == $user->getUserId()) {
+                if ($album->getUser()->getUserId() == $user->getUserId()) {
                     $this->data->album = $album;
                     require_once '../../app/albums/edit.php';
                 } else {
