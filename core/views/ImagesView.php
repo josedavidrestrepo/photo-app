@@ -70,4 +70,11 @@ class ImagesView
             echo $this->data->image->getComments();
         }
     }
+
+    public function printAlbumId()
+    {
+        if (isset($this->data->albumId)) {
+            echo $this->data->albumId;
+        }
+    }
 }

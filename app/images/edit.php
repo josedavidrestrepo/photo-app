@@ -75,6 +75,7 @@ $imageView = new ImagesView($this->data);
                         <i class="material-icons right">save</i>
                     </button>
                 </div>
+                <input type="hidden" name="album_id" value="<?php $imageView->printAlbumId() ?>">
                 <input type="hidden" name="action_type" value="edit">
                 <div class="input-field col s12">
                     <p class="center-align"

@@ -8,6 +8,7 @@
  */
 
 include_once 'c:/xampp/htdocs/photoapp/db/dao/ImagesDao.php';
+include_once 'c:/xampp/htdocs/photoapp/db/dao/AlbumsDao.php';
 include_once 'SessionController.php';
 include_once 'RoutingController.php';
 include_once 'UploadController.php';
@@ -27,7 +28,7 @@ class ImagesController
     {
         if ($user = SessionController::getUser()) {
             $imagesDao = new ImagesDao();
-            if ($images = $imagesDao->getImagesByUser($user, $albumId))
+            if ($images = $imagesDao->getImagesByUser($user->getUserId(), $albumId))
                 $this->data->images = $images;
             $this->data->user = $user;
             require_once '../../app/images/add.php';
@@ -42,13 +43,32 @@ class ImagesController
             $this->data->user = $user;
 
             $imagesDao = new ImagesDao();
-            if ($image = $imagesDao->getImage($imageId, $albumId)) {
-                $this->data->image = $image;
-                require_once '../../app/images/edit.php';
+            if ($this->verifyOwner($albumId, $user)) {
+                if ($image = $imagesDao->getImage($imageId, $albumId)) {
+                    $this->data->image = $image;
+                    $this->data->albumId = $albumId;
+                    require_once '../../app/images/edit.php';
+                } else {
+                    throw new Exception();
+                }
+            } else {
+                throw new Exception();
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
+    }
+
+    private function verifyOwner($albumId, $user)
+    {
+        $albumsDao = new AlbumsDao();
+        if ($album = $albumsDao->getAlbum($albumId)) {
+            if ($album->getUser() == $user->getUserId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function createImage($imagePhoto, $imageTittle, $imageDescription, $imageComments, $albumId)
@@ -78,42 +98,42 @@ class ImagesController
         }
     }
 
-    public function editImage($imageTittle, $imageDescription, $imageComments, $imageId)
+    public function editImage($imageTittle, $imageDescription, $imageComments, $imageId, $albumId)
     {
         if ($user = SessionController::getUser()) {
             $imagesDao = new ImagesDao();
-
-            if ($imagesDao->updateImage($imageTittle, $imageDescription, $imageComments, $imageId)) {
-                $this->data->error = false;
-                $this->data->message = "Image edited successfully";
+            if ($this->verifyOwner($albumId, $user)) {
+                if ($imagesDao->updateImage($imageTittle, $imageDescription, $imageComments, $imageId)) {
+                    $this->data->error = false;
+                    $this->data->message = "Image edited successfully";
+                } else {
+                    $this->data->error = true;
+                    $this->data->message = $imagesDao->getResponse();
+                }
             } else {
-                $this->data->error = true;
-                $this->data->message = $imagesDao->getResponse();
+                throw new Exception();
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');
-        }
-        $imagesDao = new ImagesDao();
-
-        if ($imagesDao->updateImage($imageTittle, $imageDescription, $imageComments, $imageId)) {
-            $this->data->error = false;
-            $this->data->message = "Image edited successfully";
-        } else {
-            $this->data->error = true;
-            $this->data->message = $imagesDao->getResponse();
         }
     }
 
     public function deleteImage($imageId, $albumId)
     {
         if ($user = SessionController::getUser()) {
-            $imagesDao = new ImagesDao();
+            $this->data->user = $user;
 
-            if ($imagesDao->deleteImage($imageId, $albumId)) {
-                RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+            $imagesDao = new ImagesDao();
+            if ($this->verifyOwner($albumId, $user)) {
+                if ($imagesDao->deleteImage($imageId, $albumId)) {
+                    RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                } else {
+                    throw new Exception();
+                }
             } else {
                 throw new Exception();
             }
+
         } else {
             RoutingController::redirect('http://localhost/photoapp');
         }
@@ -123,18 +143,21 @@ class ImagesController
     {
         if ($user = SessionController::getUser()) {
             $imagesDao = new ImagesDao();
-
-            if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
-                if ($imagesDao->linkImage($albumId, $imageLinkId, $orderNumber)) {
-                    $this->data->error = false;
-                    $this->data->message = "Image linked successfully";
+            if ($this->verifyOwner($albumId, $user)) {
+                if ($orderNumber = $imagesDao->getLastOrder($albumId)) {
+                    if ($imagesDao->linkImage($albumId, $imageLinkId, $orderNumber)) {
+                        $this->data->error = false;
+                        $this->data->message = "Image linked successfully";
+                    } else {
+                        $this->data->error = true;
+                        $this->data->message = $imagesDao->getResponse();
+                    }
                 } else {
                     $this->data->error = true;
-                    $this->data->message = $imagesDao->getResponse();
+                    $this->data->message = "Couldn't find order number";
                 }
             } else {
-                $this->data->error = true;
-                $this->data->message = "Couldn't find order number";
+                throw new Exception();
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');
@@ -145,21 +168,25 @@ class ImagesController
     {
         if ($user = SessionController::getUser()) {
             $imagesDao = new ImagesDao();
-            if ($previousImage = $imagesDao->getPreviousImage($albumId, $imageId)) {
-                if ($image = $imagesDao->getImage($imageId, $albumId)) {
-                    if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
-                        $imagesDao->updateOrderImage($albumId, $previousImage->getImageId(), $image->getOrderNumber()) &&
-                        $imagesDao->updateOrderImage($albumId, $image->getImageId(), $previousImage->getOrderNumber())
-                    ) {
-                        RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+            if ($this->verifyOwner($albumId, $user)) {
+                if ($previousImage = $imagesDao->getPreviousImage($albumId, $imageId)) {
+                    if ($image = $imagesDao->getImage($imageId, $albumId)) {
+                        if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
+                            $imagesDao->updateOrderImage($albumId, $previousImage->getImageId(), $image->getOrderNumber()) &&
+                            $imagesDao->updateOrderImage($albumId, $image->getImageId(), $previousImage->getOrderNumber())
+                        ) {
+                            RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                        } else {
+                            throw new Exception();
+                        }
                     } else {
                         throw new Exception();
                     }
                 } else {
-                    throw new Exception();
+                    RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
                 }
             } else {
-                RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                throw new Exception();
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');
@@ -171,22 +198,25 @@ class ImagesController
         if ($user = SessionController::getUser()) {
 
             $imagesDao = new ImagesDao();
-
-            if ($nextImage = $imagesDao->getNextImage($albumId, $imageId)) {
-                if ($image = $imagesDao->getImage($imageId, $albumId)) {
-                    if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
-                        $imagesDao->updateOrderImage($albumId, $nextImage->getImageId(), $image->getOrderNumber()) &&
-                        $imagesDao->updateOrderImage($albumId, $image->getImageId(), $nextImage->getOrderNumber())
-                    ) {
-                        RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+            if ($this->verifyOwner($albumId, $user)) {
+                if ($nextImage = $imagesDao->getNextImage($albumId, $imageId)) {
+                    if ($image = $imagesDao->getImage($imageId, $albumId)) {
+                        if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
+                            $imagesDao->updateOrderImage($albumId, $nextImage->getImageId(), $image->getOrderNumber()) &&
+                            $imagesDao->updateOrderImage($albumId, $image->getImageId(), $nextImage->getOrderNumber())
+                        ) {
+                            RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                        } else {
+                            throw new Exception();
+                        }
                     } else {
                         throw new Exception();
                     }
                 } else {
-                    throw new Exception();
+                    RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
                 }
             } else {
-                RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                throw new Exception();
             }
         } else {
             RoutingController::redirect('http://localhost/photoapp');

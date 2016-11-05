@@ -52,8 +52,9 @@ try {
                     $imageTittle = $_POST['image_tittle'];
                     $imageDescription = $_POST['image_description'];
                     $imageComments = $_POST['image_comments'];
+                    $albumId = $_POST['album_id'];
 
-                    $imageController->editImage($imageTittle, $imageDescription, $imageComments, $imageId);
+                    $imageController->editImage($imageTittle, $imageDescription, $imageComments, $imageId, $albumId);
                     break;
                 case "link":
                     if (isset($_POST['image_id'])) {

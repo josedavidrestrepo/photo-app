@@ -41,9 +41,13 @@ class AlbumsController
             $this->data->user = $user;
 
             $albumsDao = new AlbumsDao();
-            if ($album = $albumsDao->getAlbum($albumId, $user->getUserId())) {
-                $this->data->album = $album;
-                require_once '../../app/albums/edit.php';
+            if ($album = $albumsDao->getAlbum($albumId)) {
+                if ($album->getAlbumId() == $user->getUserId()) {
+                    $this->data->album = $album;
+                    require_once '../../app/albums/edit.php';
+                } else {
+                    throw new Exception();
+                }
             }
 
         } else {
@@ -59,7 +63,7 @@ class AlbumsController
             $imagesDao = new ImagesDao();
             $usersDao = new UsersDao();
 
-            if ($album = $albumsDao->getAlbum($albumId, $user->getUserId())) {
+            if ($album = $albumsDao->getAlbum($albumId)) {
                 if ($images = $imagesDao->getImagesByAlbum($album))
                     $album->setImages($images);
                 if ($userAlbum = $usersDao->getUserByUserId($album->getUser()->getUserId()))
@@ -68,8 +72,7 @@ class AlbumsController
 
             if ($user->getRole() != 1) {
                 if ($album->getUser()->getRole() != $user->getRole()) {
-                    require_once '../../app/errors/page-404.html';
-                    exit();
+                    throw new Exception();
                 }
             }
 

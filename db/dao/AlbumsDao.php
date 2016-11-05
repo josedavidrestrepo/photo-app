@@ -116,13 +116,13 @@ class AlbumsDao
         return $albums;
     }
 
-    public function getAlbum($albumId, $userId)
+    public function getAlbum($albumId)
     {
         $album = NULL;
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM albums WHERE album_id = '$albumId'AND fk_user_id = '$userId'";
+            $sql = "SELECT * FROM albums WHERE album_id = '$albumId'";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($rowAlbum = $result->fetch_array(MYSQLI_ASSOC)) {
