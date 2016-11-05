@@ -124,30 +124,4 @@ class AlbumsController
         }
     }
 
-    public function upImage($albumId, $imageId)
-    {
-        if ($user = SessionController::getUser()) {
-
-            $imagesDao = new ImagesDao();
-
-            if ($previousImage = $imagesDao->getPreviousImage($albumId, $imageId)) {
-                if ($image = $imagesDao->getImage($imageId)) {
-                    if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
-                        $imagesDao->updateOrderImage($albumId, $previousImage->getImageId(), $image->getOrderNumber()) &&
-                        $imagesDao->updateOrderImage($albumId, $image->getImageId(), $previousImage->getOrderNumber())
-                    )
-                        print "Actualizó";
-                }
-            }
-
-        } else {
-            RoutingController::redirect('http://localhost/photoapp');
-        }
-    }
-
-    public function downImage($albumId, $imageId)
-    {
-
-    }
-
 }

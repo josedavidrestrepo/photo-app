@@ -122,4 +122,56 @@ class ImagesController
 
     }
 
+    public function upImage($albumId, $imageId)
+    {
+        if ($user = SessionController::getUser()) {
+            $imagesDao = new ImagesDao();
+            if ($previousImage = $imagesDao->getPreviousImage($albumId, $imageId)) {
+                if ($image = $imagesDao->getImage($imageId)) {
+                    if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
+                        $imagesDao->updateOrderImage($albumId, $previousImage->getImageId(), $image->getOrderNumber()) &&
+                        $imagesDao->updateOrderImage($albumId, $image->getImageId(), $previousImage->getOrderNumber())
+                    ) {
+                        require_once '../../app/home/index.php';
+                    } else {
+                        require_once '../../app/errors/page-404.html';
+                    }
+                } else {
+                    require_once '../../app/errors/page-404.html';
+                }
+            } else {
+                require_once '../../app/home/index.php';
+            }
+        } else {
+            RoutingController::redirect('http://localhost/photoapp');
+        }
+    }
+
+    public function downImage($albumId, $imageId)
+    {
+        if ($user = SessionController::getUser()) {
+
+            $imagesDao = new ImagesDao();
+
+            if ($nextImage = $imagesDao->getNextImage($albumId, $imageId)) {
+                if ($image = $imagesDao->getImage($imageId)) {
+                    if ($imagesDao->updateOrderImage($albumId, $image->getImageId(), -1) &&
+                        $imagesDao->updateOrderImage($albumId, $nextImage->getImageId(), $image->getOrderNumber()) &&
+                        $imagesDao->updateOrderImage($albumId, $image->getImageId(), $nextImage->getOrderNumber())
+                    ) {
+                        require_once '../../app/home/index.php';
+                    } else {
+                        require_once '../../app/errors/page-404.html';
+                    }
+                } else {
+                    require_once '../../app/errors/page-404.html';
+                }
+            } else {
+                require_once '../../app/home/index.php';
+            }
+        } else {
+            RoutingController::redirect('http://localhost/photoapp');
+        }
+    }
+
 }

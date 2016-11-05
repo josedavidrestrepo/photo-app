@@ -33,6 +33,14 @@ try {
                 } else
                     throw new Exception();
                 break;
+            case "up":
+            case "down":
+                if (isset($_GET["album-id"]) && isset($_GET["image-id"])) {
+                    $albumId = $_GET["album-id"];
+                    $imageId = $_GET["image-id"];
+                } else
+                    throw new Exception();
+                break;
             default:
                 throw new Exception();
         }
@@ -83,6 +91,12 @@ try {
             break;
         case "delete":
             $imageController->deleteImage($imageId, $albumId);
+            break;
+        case "up":
+            $imageController->upImage($albumId, $imageId);
+            break;
+        case "down":
+            $imageController->downImage($albumId, $imageId);
             break;
         default:
             throw new Exception();

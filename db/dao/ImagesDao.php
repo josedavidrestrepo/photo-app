@@ -29,7 +29,7 @@ class ImagesDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT * FROM images WHERE image_id = '$imageId'";
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id WHERE image_id = '$imageId'";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -107,7 +107,7 @@ class ImagesDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "UPDATE images_x_album SET order_number = '$order_number' WHERE $imageId = '$imageId' AND $albumId = '$albumId'";
+            $sql = "UPDATE images_x_album SET order_number = '$order_number' WHERE fk_image_id = '$imageId' AND fk_album_id = '$albumId'";
 
             if ($this->dbConnection->link->query($sql)) {
                 $response = true;
@@ -276,33 +276,28 @@ class ImagesDao
     public function getPreviousImage($albumId, $imageId)
     {
         $image = NULL;
-
         if ($this->dbConnection->dbConnect()) {
-
             $sql = "SELECT *
                     FROM images_x_album ia
                     INNER JOIN images i ON i.image_id = ia.fk_image_id
                     WHERE fk_album_id = '$albumId' AND order_number < (SELECT order_number FROM images_x_album WHERE fk_image_id = '$imageId' AND fk_album_id = '$albumId')
                     ORDER BY order_number DESC
                     LIMIT 1";
-
             if ($result = $this->dbConnection->link->query($sql)) {
                 if ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
                     $image = ImagesOrm::mapImage($rowImage);
                 }
-
                 $result->free_result();
             } else {
                 $this->response = $this->dbConnection->link->error;
             }
-
             $this->dbConnection->link->close();
         } else {
             $this->response = $this->dbConnection->error;
         }
-
         return $image;
     }
+
 
     public function getNextImage($albumId, $imageId)
     {
@@ -310,7 +305,7 @@ class ImagesDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "SELECT *
+            $sql = "SELECT  *
                     FROM images_x_album ia
                     INNER JOIN images i ON i.image_id = ia.fk_image_id
                     WHERE fk_album_id = '$albumId' AND order_number > (SELECT order_number FROM images_x_album WHERE fk_image_id = '$imageId' AND fk_album_id = '$albumId')
@@ -321,17 +316,14 @@ class ImagesDao
                 if ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {
                     $image = ImagesOrm::mapImage($rowImage);
                 }
-
                 $result->free_result();
             } else {
                 $this->response = $this->dbConnection->link->error;
             }
-
             $this->dbConnection->link->close();
         } else {
             $this->response = $this->dbConnection->error;
         }
-
         return $image;
     }
 

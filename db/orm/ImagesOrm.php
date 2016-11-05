@@ -22,7 +22,6 @@ class ImagesOrm
         $image->setTittle($rowImage["tittle"]);
         $image->setComments($rowImage["comments"]);
         $image->setOrderNumber($rowImage['order_number']);
-
         return $image;
     }
 

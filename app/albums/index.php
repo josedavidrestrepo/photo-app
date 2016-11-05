@@ -23,14 +23,6 @@ try {
                 else
                     throw new Exception();
                 break;
-            case "up":
-            case "down":
-                if (isset($_GET["album-id"]) && isset($_GET["image-id"])) {
-                    $albumId = $_GET["album-id"];
-                    $imageId = $_GET["image-id"];
-                } else
-                    throw new Exception();
-                break;
             case "add":
                 break;
             default:
@@ -70,13 +62,6 @@ try {
             break;
         case "delete":
             $albumController->deleteAlbum($albumId);
-            break;
-        case "up":
-            $albumController->upImage($albumId, $imageId);
-            require_once '../../app/home/index.php';
-            break;
-        case "down":
-            $albumController->downImage($albumId, $imageId);
             break;
         default:
             throw new Exception();

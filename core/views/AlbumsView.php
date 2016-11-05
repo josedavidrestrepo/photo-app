@@ -81,11 +81,11 @@ class AlbumsView
                              </div>  
                             <div class="center-align">
                                 <a class="btn-floating btn waves-effect waves-light red tooltipped" 
-                                    data-position="top" data-delay="50" data-tooltip="Up" href="index.php?action=up&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '">
+                                    data-position="top" data-delay="50" data-tooltip="Up" href="../images/index.php?action=up&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '">
                                     <i class="material-icons">trending_up</i>
                                 </a>
                                 <a class="btn-floating btn waves-effect waves-light red tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Down">
+                                    data-position="top" data-delay="50" data-tooltip="Down" href="../images/index.php?action=down&image-id=' . $image->getImageId() . '&album-id=' . $album->getAlbumId() . '">
                                     <i class="material-icons">trending_down</i>
                                 </a>
                             </div>  
