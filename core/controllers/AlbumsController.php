@@ -31,7 +31,7 @@ class AlbumsController
 
             require_once '../../app/albums/add.php';
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -51,7 +51,7 @@ class AlbumsController
             }
 
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -81,7 +81,7 @@ class AlbumsController
 
             require_once '../../app/albums/albums.php';
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -99,7 +99,7 @@ class AlbumsController
                 $this->data->message = $albumsDao->getResponse();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
 
     }
@@ -117,7 +117,7 @@ class AlbumsController
                 $this->data->message = $albumsDao->getResponse();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -127,12 +127,12 @@ class AlbumsController
             $albumsDao = new AlbumsDao();
 
             if ($albumsDao->deleteAlbum($albumId, $user->getUserId())) {
-                RoutingController::redirect('http://localhost/photoapp/app/home');
+                RoutingController::redirect('/photoapp/app/home');
             } else {
                 throw new Exception();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 

@@ -33,7 +33,7 @@ class ImagesController
                 $this->data->images = $images;
             require_once '../../app/images/add.php';
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -55,7 +55,7 @@ class ImagesController
                 throw new Exception();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -94,7 +94,7 @@ class ImagesController
                 $this->data->message = "Couldn't upload image";
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -114,7 +114,7 @@ class ImagesController
                 throw new Exception();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -126,7 +126,7 @@ class ImagesController
             $imagesDao = new ImagesDao();
             if ($this->verifyOwner($albumId, $user)) {
                 if ($imagesDao->deleteImage($imageId, $albumId)) {
-                    RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                    RoutingController::redirect('/photoapp/app/albums/?action=view&album-id=' . $albumId);
                 } else {
                     throw new Exception();
                 }
@@ -135,7 +135,7 @@ class ImagesController
             }
 
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -160,7 +160,7 @@ class ImagesController
                 throw new Exception();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -175,7 +175,7 @@ class ImagesController
                             $imagesDao->updateOrderImage($albumId, $previousImage->getImageId(), $image->getOrderNumber()) &&
                             $imagesDao->updateOrderImage($albumId, $image->getImageId(), $previousImage->getOrderNumber())
                         ) {
-                            RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                            RoutingController::redirect('/photoapp/app/albums/?action=view&album-id=' . $albumId);
                         } else {
                             throw new Exception();
                         }
@@ -183,13 +183,13 @@ class ImagesController
                         throw new Exception();
                     }
                 } else {
-                    RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                    RoutingController::redirect('/photoapp/app/albums/?action=view&album-id=' . $albumId);
                 }
             } else {
                 throw new Exception();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 
@@ -205,7 +205,7 @@ class ImagesController
                             $imagesDao->updateOrderImage($albumId, $nextImage->getImageId(), $image->getOrderNumber()) &&
                             $imagesDao->updateOrderImage($albumId, $image->getImageId(), $nextImage->getOrderNumber())
                         ) {
-                            RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                            RoutingController::redirect('/photoapp/app/albums/?action=view&album-id=' . $albumId);
                         } else {
                             throw new Exception();
                         }
@@ -213,13 +213,13 @@ class ImagesController
                         throw new Exception();
                     }
                 } else {
-                    RoutingController::redirect('http://localhost/photoapp/app/albums/?action=view&album-id=' . $albumId);
+                    RoutingController::redirect('/photoapp/app/albums/?action=view&album-id=' . $albumId);
                 }
             } else {
                 throw new Exception();
             }
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 

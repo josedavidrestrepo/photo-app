@@ -25,7 +25,7 @@ class LoginController
     public function load()
     {
         if ($user = SessionController::getUser()) {
-            RoutingController::redirect('http://localhost/photoapp/app/home');
+            RoutingController::redirect('/photoapp/app/home');
         } else {
             require_once '../../app/login/login.php';
         }
@@ -39,7 +39,7 @@ class LoginController
         if ($user = $usersDao->getUserByUserName($username)) {
             if (password_verify($password, $user->getPassword())) {
                 SessionController::createSession($user);
-                RoutingController::redirect('http://localhost/photoapp/app/home');
+                RoutingController::redirect('/photoapp/app/home');
             } else {
                 $this->data->error = true;
                 $this->data->message = "Your username or password is invalid";
@@ -72,6 +72,6 @@ class LoginController
     public function logout()
     {
         SessionController::deleteSession();
-        RoutingController::redirect('http://localhost/photoapp');
+        RoutingController::redirect('/photoapp');
     }
 }

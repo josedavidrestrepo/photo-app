@@ -55,7 +55,7 @@ class HomeController
 
             require_once '../../app/home/home.php';
         } else {
-            RoutingController::redirect('http://localhost/photoapp');
+            RoutingController::redirect('/photoapp');
         }
     }
 

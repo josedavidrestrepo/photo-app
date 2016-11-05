@@ -56,7 +56,7 @@ class AlbumsView
                 '<div class="col s12 m6 l4">
                     <div class="card small hoverable sticky-action">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://localhost/photoapp/photos/' . $image->getPhoto() . '">
+                            <img class="activator" src="/photoapp/photos/' . $image->getPhoto() . '">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">' . $image->getTittle() . '
