@@ -31,6 +31,8 @@ try {
                 } else
                     throw new Exception();
                 break;
+            case "add":
+                break;
             default:
                 throw new Exception();
         }
