@@ -27,10 +27,10 @@ class ImagesController
     public function loadNewImage($albumId)
     {
         if ($user = SessionController::getUser()) {
+            $this->data->user = $user;
             $imagesDao = new ImagesDao();
             if ($images = $imagesDao->getImagesByUser($user->getUserId(), $albumId))
                 $this->data->images = $images;
-            $this->data->user = $user;
             require_once '../../app/images/add.php';
         } else {
             RoutingController::redirect('http://localhost/photoapp');
@@ -63,7 +63,7 @@ class ImagesController
     {
         $albumsDao = new AlbumsDao();
         if ($album = $albumsDao->getAlbum($albumId)) {
-            if ($album->getUser() == $user->getUserId()) {
+            if ($album->getUser()->getUserId() == $user->getUserId()) {
                 return true;
             }
         }

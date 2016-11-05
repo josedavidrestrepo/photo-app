@@ -246,7 +246,7 @@ class ImagesDao
         return $images;
     }
 
-    public function getImagesByUser($user, $albumId)
+    public function getImagesByUser($userId, $albumId)
     {
         $images = array();
 
@@ -254,7 +254,7 @@ class ImagesDao
 
             $albumId = $this->dbConnection->link->real_escape_string($albumId);
 
-            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id INNER JOIN albums a ON a.album_id = ia.fk_album_id WHERE a.fk_user_id = " . $user->getUserId() . " AND a.album_id != '$albumId' AND NOT EXISTS (SELECT 1 FROM images_x_album ia2 WHERE ia2.fk_image_id = i.image_id AND ia2.fk_album_id = '$albumId' ) ORDER BY order_number";
+            $sql = "SELECT * FROM images_x_album ia INNER JOIN images i ON i.image_id = ia.fk_image_id INNER JOIN albums a ON a.album_id = ia.fk_album_id WHERE a.fk_user_id = '$userId' AND a.album_id != '$albumId' AND NOT EXISTS (SELECT 1 FROM images_x_album ia2 WHERE ia2.fk_image_id = i.image_id AND ia2.fk_album_id = '$albumId' ) ORDER BY order_number";
 
             if ($result = $this->dbConnection->link->query($sql)) {
                 while ($rowImage = $result->fetch_array(MYSQLI_ASSOC)) {

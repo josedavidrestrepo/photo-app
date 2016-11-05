@@ -55,7 +55,7 @@ class ImagesView
 
     public function printImageOptions()
     {
-        if (isset($this->data->user)) {
+        if (isset($this->data->images)) {
             foreach ($this->data->images as $image) {
                 echo /** @lang HTML */
                     '<option value=" ' . $image->getImageId() . '">' . $image->getTittle() . '</option>';
