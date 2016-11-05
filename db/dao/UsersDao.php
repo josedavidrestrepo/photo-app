@@ -26,6 +26,12 @@ class UsersDao
 
         if ($this->dbConnection->dbConnect()) {
 
+            $name = $this->dbConnection->link->real_escape_string($name);
+            $username = $this->dbConnection->link->real_escape_string($username);
+            $password = $this->dbConnection->link->real_escape_string($password);
+            $avatar = $this->dbConnection->link->real_escape_string($avatar);
+            $role = $this->dbConnection->link->real_escape_string($role);
+
             $sql1 = "INSERT INTO persons(name) VALUES('$name')";
 
             if ($this->dbConnection->link->query($sql1)) {
@@ -65,6 +71,8 @@ class UsersDao
 
         if ($this->dbConnection->dbConnect()) {
 
+            $username = $this->dbConnection->link->real_escape_string($username);
+
             $sql = "SELECT * FROM users INNER JOIN persons ON person_id = fk_person_id WHERE username = '$username' ";
 
             if ($result = $this->dbConnection->link->query($sql)) {
@@ -94,6 +102,8 @@ class UsersDao
         $user = NULL;
 
         if ($this->dbConnection->dbConnect()) {
+
+            $userId = $this->dbConnection->link->real_escape_string($userId);
 
             $sql = "SELECT * FROM users INNER JOIN persons ON person_id = fk_person_id WHERE user_id = '$userId' ";
 
