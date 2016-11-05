@@ -88,7 +88,7 @@ class AlbumsController
             $albumsDao = new AlbumsDao();
             $user = SessionController::getUser();
 
-            if ($albumsDao->insertAlbum($albumName, $albumDescription, $user)) {
+            if ($albumsDao->insertAlbum($albumName, $albumDescription, $user->getUserId())) {
                 $this->data->error = false;
                 $this->data->message = "Album created successfully";
             } else {

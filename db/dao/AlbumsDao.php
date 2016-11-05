@@ -22,13 +22,17 @@ class AlbumsDao
         $this->dbConnection = new DbConnection();
     }
 
-    function insertAlbum($albumName, $albumDescription, $user)
+    function insertAlbum($albumName, $albumDescription, $userId)
     {
         $response = false;
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "INSERT INTO albums(name, description, fk_user_id) VALUES('$albumName', '$albumDescription', " . $user->getUserId() . ");";
+            $albumName = $this->dbConnection->link->real_escape_string($albumName);
+            $albumDescription = $this->dbConnection->link->real_escape_string($albumDescription);
+            $userId = $this->dbConnection->link->real_escape_string($userId);
+
+            $sql = "INSERT INTO albums(name, description, fk_user_id) VALUES('$albumName', '$albumDescription', '$userId');";
 
             if ($this->dbConnection->link->query($sql)) {
                 $response = true;
@@ -50,7 +54,11 @@ class AlbumsDao
 
         if ($this->dbConnection->dbConnect()) {
 
-            $sql = "UPDATE albums SET name = '$albumName', description = '$albumDescription'WHERE album_id = '$albumId' AND fk_user_id='$userId';";
+            $albumId = $this->dbConnection->link->real_escape_string($albumId);
+            $albumName = $this->dbConnection->link->real_escape_string($albumName);
+            $albumDescription = $this->dbConnection->link->real_escape_string($albumDescription);
+
+            $sql = "UPDATE albums SET name = '$albumName', description = '$albumDescription'WHERE album_id = '$albumId' AND fk_user_id='$userId'";
 
             if ($this->dbConnection->link->query($sql)) {
                 $response = true;
@@ -66,12 +74,16 @@ class AlbumsDao
         return $response;
     }
 
-    public function deleteAlbum($idAlbum, $userId)
+    public function deleteAlbum($albumId, $userId)
     {
         $response = false;
 
         if ($this->dbConnection->dbConnect()) {
-            $sql = "DELETE FROM albums WHERE album_id ='$idAlbum' AND fk_user_id = '$userId'";
+
+            $albumId = $this->dbConnection->link->real_escape_string($albumId);
+            $userId = $this->dbConnection->link->real_escape_string($userId);
+
+            $sql = "DELETE FROM albums WHERE album_id ='$albumId' AND fk_user_id = '$userId'";
             if ($this->dbConnection->link->query($sql)) {
                 if ($this->dbConnection->link->affected_rows > 0)
                     $response = true;
@@ -121,6 +133,8 @@ class AlbumsDao
         $album = NULL;
 
         if ($this->dbConnection->dbConnect()) {
+
+            $albumId = $this->dbConnection->link->real_escape_string($albumId);
 
             $sql = "SELECT * FROM albums WHERE album_id = '$albumId'";
 

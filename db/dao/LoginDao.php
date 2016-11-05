@@ -22,9 +22,13 @@ class LoginDao
     function validateUser($username, $password)
     {
         if ($this->dbConnection->dbConnect()) {
-            $strSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 
-            if ($result = mysqli_query($this->dbConnection->connectionString, $strSql)) {
+            $username = $this->dbConnection->link->real_escape_string($username);
+            $password = $this->dbConnection->link->real_escape_string($password);
+
+            $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+
+            if ($result = mysqli_query($this->dbConnection->connectionString, $sql)) {
                 $count = mysqli_num_rows($result);
 
                 mysqli_free_result($result);
